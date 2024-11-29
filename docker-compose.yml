@@ -1,0 +1,32 @@
+services:
+  db:
+    image: postgres
+    container_name: boh_db
+    volumes:
+      - ./req/postgres/data:/var/lib/postgresql/data
+    env_file: .env
+    expose:
+      - 5432
+    networks:
+      - db_back_net
+
+  django:
+    container_name: django
+    build:
+      context: req/django
+      dockerfile: Dockerfile
+    volumes:
+      - ./req/django/code:/django_files
+    ports:
+      - 8080:8080
+    expose:
+      - 5432
+    depends_on:
+      - db
+    env_file: .env
+    networks:
+      - db_back_net
+
+networks:
+  db_back_net:
+    driver: bridge
