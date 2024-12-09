@@ -5,6 +5,8 @@ from django.db import models
 class Principle(models.Model):
     name = models.CharField(max_length=20)
     des = models.CharField(max_length=100)
+    def get_params():
+        return ["name", "des"]
 
 class Tongue(models.Model):
     name = models.CharField(max_length=20)
