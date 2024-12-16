@@ -1,3 +1,4 @@
 .env
 
 req/postgres/data/
+req/django/code/images/

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>List of {{ type }}s</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</head>
+<body>
+
+<div class="list-group" id="refs">
+
+  <!-----Navigation Bar------>
+  {% include 'wiki/nav_bar.html' %}
+
+  <div class="container">
+    <h1>List of {{ type }}s</h1>
+    <p class="lead">{{ materia_des }}</p>
+    <a href="{% url "wiki:new" type %}" class="btn btn-primary">Create new {{ type }}?</a>
+  </div>
+</div>
+
+<div data-bs-spy="scroll" data-bs-target="#refs" data-bs-root-margin="0px 0px -40%" data-bs-smooth-scroll="true" class="scrollspy-example bg-body-tertiary p-3 rounded-2" tabindex="0">
+  <div class="container">
+    <div class="row row-cols-4 g-4">
+      {% for thing in list %}
+    <div class="col">
+      <div class="card text-center h-100">
+        {% if thing.image %}
+        <img src="{{ thing.image.url }}" class="card-img-top" alt="image of {{ thing.name }}">
+        {% endif %}
+        <div class="card-body">
+          <h3 class="card-title">{{ thing.name }}</h3>
+          <p class="card-text"><i>{{ thing.description }}</i></p>
+        {% if type == 'skill' %}
+          {% include 'wiki/skill_card_body.html' %}
+        {% endif %}
+        </div>
+        <div class="card-footer">
+          <a href="{% url "wiki:detail" type thing.id %}" class="btn btn-primary">See</a>
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+    </div>
+  </div>
+</div>
+
+</body>
+</html>
