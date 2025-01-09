@@ -9,11 +9,19 @@
 </head>
 <body>
 
-<h1>Create a new {{ type }}</h1>
-<form method="post" enctype="multipart/form-data">{% csrf_token %}
-    {{ form.as_p }}
+  <!-----Navigation Bar------>
+  {% include 'wiki/nav_bar.html' %}
+
+<div class="container">
+  <h1>Create new {{ type }}</h1>
+  <form method="post" enctype="multipart/form-data">{% csrf_token %}
+    <table class="table">
+      {{ form }}
+    </table>
     <input type="submit" value="Save">
-</form>
+  </form>
+</div>
+
 
 </body>
 </html>

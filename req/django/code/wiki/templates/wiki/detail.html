@@ -16,8 +16,8 @@
   {% include 'wiki/nav_bar.html' %}
 
 <div class="container">
-  <h1>{{ materia.name }}</h1>
-  <p>{{ materia.description }}</p>
+  <h1>{{ materia.name }}{{ materia.obj.name }}</h1>
+  <p>{{ materia.description }}{{ materia.obj.description }}</p>
 </div>
 {% if materia.image %}
 <div class="container">
@@ -25,7 +25,11 @@
 </div>
 {% endif %}
 <div class="container">
+  {% if materia.id %}
   <a href="{% url 'wiki:edit' type materia.id %}">Edit</a>
+  {% else %}
+  <a href="{% url 'wiki:edit' type materia.obj.id %}">Edit</a>
+  {% endif %}
 </div>
 
 </body>

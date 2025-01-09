@@ -10,19 +10,33 @@ from . import forms as my_forms
 get_model = {
     'principle': my_models.Principle,
     'skilllabel': my_models.SkillLabel,
+    'objectlabel': my_models.ObjectLabel,
+    'tongue': my_models.Tongue,
     'skill': my_models.Skill,
+    'memory': my_models.Memory,
 }
 
 list_des = {
     'principle': 'The powers that make up our reality',
     'skilllabel': '',
+    'objectlabel': '',
+    'tongue': 'Speach is a wound',
     'skill': 'Show me what you can do with those hands',
+    'memory': 'All you can remember',
+}
+
+form_model = {
+    'principle': my_forms.BaseMateriaForm,
+    'tongue': my_forms.BaseMateriaForm,
+    'skilllabel': my_forms.BaseMateriaForm,
+    'objectlabel': my_forms.BaseMateriaForm,
+    'skill': my_forms.SkillForm,
+    'memory': my_forms.MemoryForm,
 }
 
 class myListView(generic.ListView):
     template_name = "wiki/list.html"
     context_object_name = "list"
-    ordering = ['name']
 
     def setup(self, request, *args, **kwargs):
         super().setup(request, *args, **kwargs)
@@ -57,7 +71,12 @@ class myEditView(generic.UpdateView):
     def setup(self, request, *args, **kwargs):
         super().setup(request, *args, **kwargs)
         self.model = get_model[self.kwargs["materia"]]
-        self.fields = self.model.get_params()
+        self.form_class = form_model[self.kwargs["materia"]]
+
+    def get_form_kwargs(self, *args, **kwargs):
+        kwargs = super(myEditView, self).get_form_kwargs(*args, **kwargs)
+        kwargs['materia'] = self.model
+        return kwargs
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -74,7 +93,12 @@ class myNewView(generic.CreateView):
     def setup(self, request, *args, **kwargs):
         super().setup(request, *args, **kwargs)
         self.model = get_model[self.kwargs["materia"]]
-        self.fields = self.model.get_params()
+        self.form_class = form_model[self.kwargs["materia"]]
+
+    def get_form_kwargs(self, *args, **kwargs):
+        kwargs = super(myNewView, self).get_form_kwargs(*args, **kwargs)
+        kwargs['materia'] = self.model
+        return kwargs
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)

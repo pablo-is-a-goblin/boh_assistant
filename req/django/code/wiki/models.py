@@ -6,6 +6,9 @@ class Principle(models.Model):
     name = models.CharField(max_length=20)
     description = models.TextField(blank=True)
     image = models.ImageField(upload_to='principles', blank=True)
+    
+    class Meta:
+        ordering = ["name"]
 
     def get_params():
         return ["name", "description", "image"]
@@ -17,6 +20,9 @@ class Tongue(models.Model):
     description = models.TextField(blank=True)
     image = models.ImageField(upload_to='tongues', blank=True)
 
+    class Meta:
+        ordering = ["name"]
+
     def get_params():
         return ["name", "description", "image"]
     def __str__(self):
@@ -27,6 +33,9 @@ class SkillLabel(models.Model):
     description = models.TextField(blank=True)
     image = models.ImageField(upload_to='skill_labels', blank=True)
 
+    class Meta:
+        ordering = ["name"]
+
     def get_params():
         return ["name", "description", "image"] 
     def __str__(self):
@@ -36,6 +45,9 @@ class ObjectLabel(models.Model):
     name = models.CharField(max_length=20)
     description = models.TextField(blank=True)
     image = models.ImageField(upload_to='object_labels', blank=True)
+
+    class Meta:
+        ordering = ["name"]
 
     def get_params():
         return ["name", "description", "image"]
@@ -48,6 +60,9 @@ class Object(models.Model):
     principles = models.ManyToManyField(Principle, through='ObjectHasPrinciple')
     aspects = models.ManyToManyField(ObjectLabel, blank=True)
     image = models.ImageField(upload_to='objects', blank=True)
+
+    class Meta:
+        ordering = ["name"]
 
     def get_params():
         return ["name", "description", "principles", "aspects", "image"]
@@ -63,13 +78,16 @@ class Skill(models.Model):
     aspects = models.ManyToManyField(SkillLabel, blank=True)
     image = models.ImageField(upload_to='skills', blank=True)
 
+    class Meta:
+        ordering = ["name"]
+
     def get_params():
         return ["name", "description", "principle1", "principle2", "aspects", "image"]
     def __str__(self):
         return self.name
 
 class Memory(models.Model):
-    obj = models.OneToOneField(Object, primary_key=True, on_delete=models.CASCADE)
+    obj = models.OneToOneField(Object, on_delete=models.CASCADE)
 
     def get_params():
         return Object.get_params()
@@ -77,7 +95,7 @@ class Memory(models.Model):
         return self.obj.name
 
 class Beast(models.Model):
-    obj = models.OneToOneField(Object, primary_key=True, on_delete=models.CASCADE)
+    obj = models.OneToOneField(Object, on_delete=models.CASCADE)
     talking = models.ForeignKey(Memory, on_delete=models.PROTECT, blank=True)
 
     def get_params():
@@ -88,7 +106,7 @@ class Beast(models.Model):
         return self.obj.name
 
 class WallArt(models.Model):
-    obj = models.OneToOneField(Object, primary_key=True, on_delete=models.CASCADE)
+    obj = models.OneToOneField(Object, on_delete=models.CASCADE)
     considering = models.ForeignKey(Memory, on_delete=models.PROTECT, blank=True)
 
     def get_params():
@@ -99,9 +117,9 @@ class WallArt(models.Model):
         return self.obj.name
 
 class Thing(models.Model):
-    obj = models.OneToOneField(Object, primary_key=True, on_delete=models.CASCADE)
+    obj = models.OneToOneField(Object, on_delete=models.CASCADE)
     consider = models.ForeignKey(Memory, on_delete=models.PROTECT, blank=True)
-
+    
     def get_params():
         fields = Object.get_params()
         fields.append("consider")
@@ -110,7 +128,7 @@ class Thing(models.Model):
         return self.obj.name
 
 class Book(models.Model):
-    obj = models.OneToOneField(Object, primary_key=True, on_delete=models.CASCADE)
+    obj = models.OneToOneField(Object, on_delete=models.CASCADE)
     abv = models.CharField(max_length=30)
     tally = models.IntegerField()
     dificulty = models.IntegerField()

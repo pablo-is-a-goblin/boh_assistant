@@ -31,15 +31,27 @@
         {% if thing.image %}
         <img src="{{ thing.image.url }}" class="card-img-top" alt="image of {{ thing.name }}">
         {% endif %}
+        {% if thing.obj.image %}
+        <img src="{{ thing.obj.image.url }}" class="card-img-top" alt="image of {{ thing.obj.name }}">
+        {% endif %}
         <div class="card-body">
+        {% if type == 'principle' or type == 'tongue' or type == 'skilllabel' or type == 'objectlabel' %}
           <h3 class="card-title">{{ thing.name }}</h3>
           <p class="card-text"><i>{{ thing.description }}</i></p>
+        {% endif %}
         {% if type == 'skill' %}
           {% include 'wiki/skill_card_body.html' %}
         {% endif %}
+        {% if type == 'memory' %}
+          {% include 'wiki/object_card_body.html' %}
+        {% endif %}
         </div>
         <div class="card-footer">
+        {% if thing.id %}
           <a href="{% url "wiki:detail" type thing.id %}" class="btn btn-primary">See</a>
+        {% else %}
+          <a href="{% url "wiki:detail" type thing.obj.id %}" class="btn btn-primary">See</a>
+        {% endif %}
         </div>
       </div>
     </div>
