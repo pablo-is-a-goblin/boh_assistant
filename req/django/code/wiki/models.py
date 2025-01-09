@@ -113,10 +113,11 @@ class Book(models.Model):
     mistery = models.ForeignKey(Principle, on_delete=models.CASCADE)
     reading = models.TextField(blank=True)
     read = models.TextField(blank=True)
+    memory = models.ForeignKey(Object, on_delete=models.PROTECT, blank=True, null=True)
 
     def get_params():
         fields = Object.get_params()
-        return ["name", "description", "image", "abv", "tally", "dificulty", "tongue", "mistery", "reading", "read"]
+        return ["name", "description", "image", "abv", "tally", "dificulty", "tongue", "mistery", "reading", "read", "memory"]
 
     def __str__(self):
         return self.obj.name
