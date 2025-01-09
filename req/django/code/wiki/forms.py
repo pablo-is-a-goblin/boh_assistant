@@ -43,15 +43,15 @@ class ObjectForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         kwargs.pop("materia")
         self._meta.model = my_models.Object
-        self._meta.fields = self._meta.model.get_params()
         super(ObjectForm, self).__init__(*args, **kwargs)
+        self._meta.fields = self._meta.model.get_params(self.instance)
         for principle in my_models.Principle.objects.all().iterator():
-            self.fields[principle.name + "_quantity"]  = forms.IntegerField()  
+            self.fields[principle.name + "_quantity"] = forms.IntegerField()  
             self.fields[principle.name + "_quantity"].required = False
+        if kwargs["instance"] != None:
+            for qty in my_models.ObjectHasPrinciple.objects.filter(obj=self.instance).iterator():
+                self.initial[qty.principle.name + "_quantity"] = qty.qty
         self.fields['aspects'].required = False
-        if type(self.instance) == my_models.Memory:
-            self.instance = self.instance.obj
-            print(self.instance.name)
 
     name = forms.CharField()
     description = forms.CharField(widget=forms.Textarea(), required=False)
@@ -60,6 +60,7 @@ class ObjectForm(forms.ModelForm):
         widget=forms.CheckboxSelectMultiple,
     )
     image = forms.ImageField(required=False)
+    object_type = forms.ChoiceField(choices=my_models.OBJECT_TYPE)
 
     def save(self, commit=True):
         instance = super().save(commit=commit)

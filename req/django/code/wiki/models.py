@@ -74,7 +74,7 @@ class Object(models.Model):
         ordering = ["name"]
 
     def get_params(self):
-        fields = ["name", "description", "principles", "aspects", "image"]
+        fields = ["name", "description", "principles", "aspects", "image", "object_type"]
 
         if self.object_type == "BEAST":
             fields.append("talking")
@@ -120,7 +120,7 @@ class Book(models.Model):
         return ["name", "description", "image", "abv", "tally", "dificulty", "tongue", "mistery", "reading", "read", "memory"]
 
     def __str__(self):
-        return self.obj.name
+        return self.name
 
 class ObjectHasPrinciple(models.Model):
     obj = models.ForeignKey(Object, on_delete=models.PROTECT)
