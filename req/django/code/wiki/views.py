@@ -13,7 +13,7 @@ get_model = {
     'objectlabel': my_models.ObjectLabel,
     'tongue': my_models.Tongue,
     'skill': my_models.Skill,
-    'memory': my_models.Memory,
+    'memory': my_models.Object,
 }
 
 list_des = {
@@ -31,7 +31,7 @@ form_model = {
     'skilllabel': my_forms.BaseMateriaForm,
     'objectlabel': my_forms.BaseMateriaForm,
     'skill': my_forms.SkillForm,
-    'memory': my_forms.MemoryForm,
+    'memory': my_forms.ObjectForm,
 }
 
 class myListView(generic.ListView):

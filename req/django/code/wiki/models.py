@@ -2,6 +2,12 @@ from django.db import models
 
 # Create your models here.
 
+OBJECT_TYPE = (
+    ("MEMORY", "memory"),
+    ("THING", "thing"),
+    ("BEAST", "beast"),
+)
+
 class Principle(models.Model):
     name = models.CharField(max_length=20)
     description = models.TextField(blank=True)
@@ -60,12 +66,22 @@ class Object(models.Model):
     principles = models.ManyToManyField(Principle, through='ObjectHasPrinciple')
     aspects = models.ManyToManyField(ObjectLabel, blank=True)
     image = models.ImageField(upload_to='objects', blank=True)
+    talking = models.ForeignKey('self', on_delete=models.PROTECT, blank=True, null=True, related_name='talked')
+    considering = models.ForeignKey('self', on_delete=models.PROTECT, blank=True, null=True, related_name='considered')
+    object_type = models.CharField(max_length=10, choices=OBJECT_TYPE)
 
     class Meta:
         ordering = ["name"]
 
-    def get_params():
-        return ["name", "description", "principles", "aspects", "image"]
+    def get_params(self):
+        fields = ["name", "description", "principles", "aspects", "image"]
+
+        if self.object_type == "BEAST":
+            fields.append("talking")
+        if self.object_type != "MEMORY":
+            fields.append("considering")
+        return fields
+    
     def __str__(self):
         return self.name
 
@@ -86,49 +102,10 @@ class Skill(models.Model):
     def __str__(self):
         return self.name
 
-class Memory(models.Model):
-    obj = models.OneToOneField(Object, on_delete=models.CASCADE)
-
-    def get_params():
-        return Object.get_params()
-    def __str__(self):
-        return self.obj.name
-
-class Beast(models.Model):
-    obj = models.OneToOneField(Object, on_delete=models.CASCADE)
-    talking = models.ForeignKey(Memory, on_delete=models.PROTECT, blank=True)
-
-    def get_params():
-        fields = Object.get_params()
-        fields.append("talking")
-        return fields
-    def __str__(self):
-        return self.obj.name
-
-class WallArt(models.Model):
-    obj = models.OneToOneField(Object, on_delete=models.CASCADE)
-    considering = models.ForeignKey(Memory, on_delete=models.PROTECT, blank=True)
-
-    def get_params():
-        fields = Object.get_params()
-        fields.append("considering")
-        return fields
-    def __str__(self):
-        return self.obj.name
-
-class Thing(models.Model):
-    obj = models.OneToOneField(Object, on_delete=models.CASCADE)
-    consider = models.ForeignKey(Memory, on_delete=models.PROTECT, blank=True)
-    
-    def get_params():
-        fields = Object.get_params()
-        fields.append("consider")
-        return fields
-    def __str__(self):
-        return self.obj.name
-
 class Book(models.Model):
-    obj = models.OneToOneField(Object, on_delete=models.CASCADE)
+    name = models.CharField(max_length=50)
+    description = models.TextField(blank=True)
+    image = models.ImageField(upload_to='books', blank=True)
     abv = models.CharField(max_length=30)
     tally = models.IntegerField()
     dificulty = models.IntegerField()
@@ -139,8 +116,8 @@ class Book(models.Model):
 
     def get_params():
         fields = Object.get_params()
-        fields.append("abv", "tally", "dificulty", "tongue", "mistery", "reading", "read")
-        return fields
+        return ["name", "description", "image", "abv", "tally", "dificulty", "tongue", "mistery", "reading", "read"]
+
     def __str__(self):
         return self.obj.name
 

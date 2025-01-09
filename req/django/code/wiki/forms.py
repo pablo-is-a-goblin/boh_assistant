@@ -76,14 +76,3 @@ class ObjectForm(forms.ModelForm):
                     )
         
         return instance
-
-class MemoryForm(ObjectForm):
-
-    def save(self, commit=True):
-        instance = super().save(commit=commit)
-
-        mem = my_models.Memory.objects.create(
-            obj = instance
-        )
-
-        return mem
