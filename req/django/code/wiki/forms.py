@@ -67,7 +67,9 @@ class ObjectForm(forms.ModelForm):
         
         for principle in my_models.Principle.objects.all().iterator():
             if my_models.ObjectHasPrinciple.objects.filter(obj=instance, principle=principle):
-                pass
+                ins = my_models.ObjectHasPrinciple.objects.get(obj=instance, principle=principle)
+                ins.qty = self.cleaned_data[principle.name + '_quantity']
+                ins.save()
             else:
                 if self.cleaned_data.get(principle.name + "_quantity"):
                     my_models.ObjectHasPrinciple.objects.create(
