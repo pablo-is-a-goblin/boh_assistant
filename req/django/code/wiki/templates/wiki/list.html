@@ -24,7 +24,7 @@
 
 <div data-bs-spy="scroll" data-bs-target="#refs" data-bs-root-margin="0px 0px -40%" data-bs-smooth-scroll="true" class="scrollspy-example bg-body-tertiary p-3 rounded-2" tabindex="0">
   <div class="container">
-    <div class="row row-cols-4 g-4">
+    <div class="row row-cols-5 g-5">
       {% for thing in list %}
     <div class="col">
       <div class="card text-center h-100">
@@ -39,7 +39,7 @@
         {% if type == 'skill' %}
           {% include 'wiki/skill_card_body.html' %}
         {% endif %}
-        {% if type == 'memory' %}
+        {% if type == 'memory' or type == 'thing' or type == 'beast' %}
           {% include 'wiki/object_card_body.html' %}
         {% endif %}
         {% if type == 'book' %}

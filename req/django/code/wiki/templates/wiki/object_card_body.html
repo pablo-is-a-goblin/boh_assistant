@@ -2,9 +2,15 @@
 <p class="card-text"><i>{{ thing.description }}</i></p>
 
 {% for p in thing.objecthasprinciple_set.all %}
-    <h2 class="card-text"><img src="{{ p.principle.image.url }}" alt="{{ p.principle.name }}">{{ p.qty }}</p>
+    {% if p.principle.image %}
+    <h2 class="card-text"><img src="{{ p.principle.image.url }}" style="max-width: 20%" alt="{{ p.principle.name }}">{{ p.qty }}<h2>
+    {% else %}
+    <h2 class="card-text">{{ p.principle.name }} {{ p.qty }}</h2>
+    {% endif %}
 {% endfor %}
 
 {% for label in thing.aspects.all %}
-    <img src="{{ label.image.url }}" alt="image of {{ label.name }}">
+    {% if label.image %}
+    <h2 class="card-text"><img src="{{ label.image.url }}" style="max-width: 15%" alt="image of {{ label.name }}"></h2>
+    {% endif %}
 {% endfor %}

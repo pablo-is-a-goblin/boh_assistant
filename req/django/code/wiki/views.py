@@ -14,6 +14,8 @@ get_model = {
     'tongue': my_models.Tongue,
     'skill': my_models.Skill,
     'memory': my_models.Object,
+    'thing': my_models.Object,
+    'beast': my_models.Object,
     'book': my_models.Book,
 }
 
@@ -24,6 +26,8 @@ list_des = {
     'tongue': 'Speach is a wound',
     'skill': 'Show me what you can do with those hands...',
     'memory': 'All you can remember',
+    'thing': '',
+    'beast': '',
     'book': 'Books are the memory that does not die'
 }
 
@@ -34,6 +38,8 @@ form_model = {
     'objectlabel': my_forms.BaseMateriaForm,
     'skill': my_forms.SkillForm,
     'memory': my_forms.ObjectForm,
+    'thing': my_forms.ObjectForm,
+    'beast': my_forms.ObjectForm,
     'book': my_forms.BookForm,
 }
 
