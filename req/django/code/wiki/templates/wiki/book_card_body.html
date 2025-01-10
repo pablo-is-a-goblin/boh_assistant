@@ -1,0 +1,5 @@
+<h3 class="card-title">{{ thing.name }}</h3>
+<p class="card-text"><i>{{ thing.description }}</i></p>
+{% if thing.mistery.image %}
+    <img src="{{ thing.mistery.image.url }}" class="img-fluid" alt="image of {{ thing.mistery.name }}">
+{% endif %}

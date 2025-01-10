@@ -1,12 +1,12 @@
 <h3 class="card-title">{{ thing.name }}</h3>
 <p class="card-text"><i>{{ thing.description }}</i></p>
     {% if thing.principle1.image %}
-    <img src="{{ thing.principle1.image.url }}" alt="image of {{ thing.principle1.name }}">
+    <img src="{{ thing.principle1.image.url }}" class="img-fluid h-100" alt="image of {{ thing.principle1.name }}">
     {% endif %}
     {% if thing.principle2.image %}
-    <img src="{{ thing.principle2.image.url }}" alt="image of {{ thing.principle2.name }}">
+    <img src="{{ thing.principle2.image.url }}" class="img-fluid h-100" alt="image of {{ thing.principle2.name }}">
     {% endif %}
+    
     {% for label in thing.aspects.all %}
     <img src="{{ label.image.url }}" alt="image of {{ label.name }}">
-
-{% endfor %}
+    {% endfor %}

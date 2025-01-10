@@ -42,6 +42,9 @@
         {% if type == 'memory' %}
           {% include 'wiki/object_card_body.html' %}
         {% endif %}
+        {% if type == 'book' %}
+          {% include 'wiki/book_card_body.html' %}
+        {% endif %}
         </div>
         <div class="card-footer">
         {% if thing.id %}

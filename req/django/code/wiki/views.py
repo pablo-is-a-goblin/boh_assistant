@@ -14,6 +14,7 @@ get_model = {
     'tongue': my_models.Tongue,
     'skill': my_models.Skill,
     'memory': my_models.Object,
+    'book': my_models.Book,
 }
 
 list_des = {
@@ -21,8 +22,9 @@ list_des = {
     'skilllabel': '',
     'objectlabel': '',
     'tongue': 'Speach is a wound',
-    'skill': 'Show me what you can do with those hands',
+    'skill': 'Show me what you can do with those hands...',
     'memory': 'All you can remember',
+    'book': 'Books are the memory that does not die'
 }
 
 form_model = {
@@ -32,6 +34,7 @@ form_model = {
     'objectlabel': my_forms.BaseMateriaForm,
     'skill': my_forms.SkillForm,
     'memory': my_forms.ObjectForm,
+    'book': my_forms.BookForm,
 }
 
 class myListView(generic.ListView):
@@ -104,44 +107,3 @@ class myNewView(generic.CreateView):
         context = super().get_context_data(**kwargs)
         context["type"] = self.kwargs["materia"]
         return context
-
-class NewPrincipleView(generic.CreateView):
-    template_name = "wiki/principle_new.html"
-    model = my_models.Principle
-    fields = my_models.Principle.get_params()
-    success_url = reverse_lazy("wiki:principle_list")
-
-class EditPrincipleView(generic.UpdateView):
-    template_name = "wiki/principle_edit.html"
-    model = my_models.Principle
-    fields = my_models.Principle.get_params()
-    def get_success_url(self):
-        return reverse('wiki:principle_detail', kwargs={'pk': self.kwargs['pk']})
-
-class ListTongueView(generic.ListView):
-    model = my_models.Tongue
-    template_name = "wiki/tongue_list.html"
-
-class DetailTongueView(generic.DetailView):
-    model = my_models.Tongue
-    template_name = "wiki/tongue_detail.html"
-
-class NewTongueView(generic.CreateView):
-    template_name = "wiki/tongue_new.html"
-    model = my_models.Tongue
-    fields = my_models.Tongue.get_params()
-    success_url = reverse_lazy("wiki:tongue_list")
-
-class ListSkillView(generic.ListView):
-    model = my_models.Skill
-    template_name = "wiki/skill_list.html"
-
-class DetailSkillView(generic.DetailView):
-    model = my_models.Skill
-    template_name = "wiki/skill_detail.html"
-
-class NewSkillView(generic.CreateView):
-    template_name = "wiki/skill_new.html"
-    model = my_models.Skill
-    fields = my_models.Skill.get_params()
-    success_url = reverse_lazy("wiki:skill_list")

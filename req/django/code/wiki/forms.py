@@ -77,3 +77,36 @@ class ObjectForm(forms.ModelForm):
                     )
         
         return instance
+
+class BookForm(forms.ModelForm):
+    def __init__(self, *args, **kwargs):
+        kwargs.pop("materia")
+        self._meta.model = my_models.Book
+        self._meta.fields = self._meta.model.get_params()
+        super(BookForm, self).__init__(*args, **kwargs)
+
+    name = forms.CharField()
+    description = forms.CharField(widget=forms.Textarea(), required=False)
+    image = forms.ImageField(required=False)
+    abv = forms.CharField(required=False)
+    tally = forms.IntegerField()
+    dificulty = forms.IntegerField()
+    tongue =  forms.ModelChoiceField(
+        queryset=my_models.Tongue.objects.all(),
+        required=False,
+    )
+    mistery = forms.ModelChoiceField(
+        queryset=my_models.Principle.objects.all()
+    )
+    reading = forms.CharField(
+        widget=forms.Textarea(), 
+        required=False
+    )
+    read = forms.CharField(
+        widget=forms.Textarea(), 
+        required=False
+    )
+    memory = forms.ModelChoiceField(
+        queryset=my_models.Object.objects.filter(object_type="MEMORY"),
+        required=False
+    )
