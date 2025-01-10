@@ -50,6 +50,11 @@ class myListView(generic.ListView):
         context["type"] = self.kwargs["materia"]
         context["materia_des"] = list_des[self.kwargs["materia"]]
         return context
+    
+    def get_queryset(self):
+        if self.model != my_models.Object:
+            return super().get_queryset()
+        return my_models.Object.objects.filter(object_type=self.kwargs["materia"].upper())
 
 class myDetailView(generic.DetailView):
     template_name = "wiki/detail.html"

@@ -134,6 +134,6 @@ class Craft(models.Model):
     req_label = models.ForeignKey(ObjectLabel, on_delete=models.CASCADE, blank=True)
     req_object = models.ForeignKey(Object, related_name="needed_for", on_delete=models.CASCADE, blank=True)
     def get_params():
-        return ["skill", "product", "principle", "levle", "req_label", "req_object"]
+        return ["skill", "product", "principle", "level", "req_label", "req_object"]
     def __str__(self):
         return "Crafting " + self.product
