@@ -37,13 +37,13 @@
           <p class="card-text"><i>{{ thing.description }}</i></p>
         {% endif %}
         {% if type == 'skill' %}
-          {% include 'wiki/skill_card_body.html' %}
+          {% include 'wiki/card_body/skill.html' %}
         {% endif %}
         {% if type == 'memory' or type == 'thing' or type == 'beast' %}
-          {% include 'wiki/object_card_body.html' %}
+          {% include 'wiki/card_body/object.html' %}
         {% endif %}
         {% if type == 'book' %}
-          {% include 'wiki/book_card_body.html' %}
+          {% include 'wiki/card_body/book.html' %}
         {% endif %}
         </div>
         <div class="card-footer">
