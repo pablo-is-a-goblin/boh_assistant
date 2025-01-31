@@ -21,8 +21,24 @@ services:
       - 8080:8080
     expose:
       - 5432
+      - 3000
     depends_on:
       - db
+    env_file: .env
+    networks:
+      - db_back_net
+
+  react:
+    container_name: react
+    build:
+      context: req/react
+      dockerfile: Dockerfile
+    volumes:
+      - ./req/react/code:/app/
+    expose:
+      - 3000
+    ports:
+      - 8000:3000
     env_file: .env
     networks:
       - db_back_net

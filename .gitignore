@@ -2,3 +2,6 @@
 
 req/postgres/data/
 req/django/code/images/
+
+wiki-fe/
+node_modules/
