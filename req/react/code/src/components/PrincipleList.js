@@ -5,7 +5,7 @@ import ConfirmRemovalModal from "./ConfirmRemovalModal";
 
 class PrincipleList extends Component {
   render() {
-    const principles = this.props.principles;
+	  const principles = this.props.principles;
     return (
       <Table dark>
         <thead>

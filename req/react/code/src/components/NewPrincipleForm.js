@@ -22,9 +22,18 @@ class NewPrincipleForm extends React.Component {
 		this.setState({ [e.target.name]: e.target.value });
 	};
 
+	onChangeFile = e => {
+		this.setState({image: e.target.files[0]})
+	};
+
 	createPrinciple = e => {
 		e.preventDefault();
-		axios.post(API_URL, this.state).then(() => {
+		let data = new FormData();
+		data.append("pk", this.state.pk);
+		data.append("name", this.state.name);
+		data.append("description", this.state.description);
+		data.append("image", this.state.image);
+		axios.post(API_URL, data).then(() => {
 		  this.props.resetState();
 		  this.props.toggle();
 		});
@@ -32,7 +41,12 @@ class NewPrincipleForm extends React.Component {
 
 	editPrinciple = e => {
 		e.preventDefault();
-		axios.put(API_URL + this.state.pk, this.state).then(() => {
+		let data = new FormData();
+		data.append("pk", this.state.pk);
+		data.append("name", this.state.name);
+		data.append("description", this.state.description);
+		data.append("image", this.state.image);
+		axios.put(API_URL + this.state.pk, data).then(() => {
 		  this.props.resetState();
 		  this.props.toggle();
 		});
@@ -66,10 +80,9 @@ class NewPrincipleForm extends React.Component {
 			<FormGroup>
 			  <Label for="image">Image:</Label>
 			  <Input
-				type="image"
+				type="file"
 				name="image"
-				onChange={this.onChange}
-				value={this.defaultIfEmpty(this.state.image)}
+				onChange={this.onChangeFile}
 			  />
 			</FormGroup>
 			<Button>Send</Button>
