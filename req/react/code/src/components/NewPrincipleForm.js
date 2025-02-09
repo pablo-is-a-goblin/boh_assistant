@@ -71,7 +71,7 @@ class NewPrincipleForm extends React.Component {
 			<FormGroup>
 			  <Label for="description">Description:</Label>
 			  <Input
-				type="text"
+				type="textarea"
 				name="description"
 				onChange={this.onChange}
 				value={this.defaultIfEmpty(this.state.description)}
