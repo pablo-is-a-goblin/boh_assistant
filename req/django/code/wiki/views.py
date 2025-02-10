@@ -13,8 +13,8 @@ from rest_framework import status
 
 get_model = {
     'principle': my_models.Principle,
-    'skilllabel': my_models.SkillLabel,
-    'objectlabel': my_models.ObjectLabel,
+    'skill_label': my_models.SkillLabel,
+    'object_label': my_models.ObjectLabel,
     'tongue': my_models.Tongue,
     'skill': my_models.Skill,
     'memory': my_models.Object,
@@ -25,8 +25,8 @@ get_model = {
 
 list_des = {
     'principle': 'The powers that make up our reality',
-    'skilllabel': '',
-    'objectlabel': '',
+    'skill_label': '',
+    'object_label': '',
     'tongue': 'Speach is a wound',
     'skill': 'Show me what you can do with those hands...',
     'memory': 'All you can remember',
@@ -35,11 +35,19 @@ list_des = {
     'book': 'Books are the memory that does not die'
 }
 
+my_serializers = {
+    'principle': PrincipleSerializer,
+    'tongue': TongueSerializer,
+    'skill_label': SkillLabelSerializer,
+    'object_label': ObjectLabelSerializer,
+    'skill': SkillSerializer,
+}
+
 form_model = {
     'principle': my_forms.BaseMateriaForm,
     'tongue': my_forms.BaseMateriaForm,
-    'skilllabel': my_forms.BaseMateriaForm,
-    'objectlabel': my_forms.BaseMateriaForm,
+    'skill_label': my_forms.BaseMateriaForm,
+    'object_label': my_forms.BaseMateriaForm,
     'skill': my_forms.SkillForm,
     'memory': my_forms.ObjectForm,
     'thing': my_forms.ObjectForm,
@@ -48,16 +56,16 @@ form_model = {
 }
 
 @api_view(['GET', 'POST'])
-def principle_list(request):
+def api_list(request, materia):
     if request.method == 'GET':
-        data = my_models.Principle.objects.all()
+        data = get_model[materia].objects.all()
 
-        serializer = PrincipleSerializer(data, context={'request': request}, many=True)
+        serializer = my_serializers[materia](data, context={'request': request}, many=True)
 
         return Response(serializer.data)
 
     elif request.method == 'POST':
-        serializer = PrincipleSerializer(data=request.data)
+        serializer = my_serializers[materia](data=request.data)
         if serializer.is_valid():
             serializer.save()
             return Response(status=status.HTTP_201_CREATED)
@@ -65,14 +73,14 @@ def principle_list(request):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 @api_view(['PUT', 'DELETE'])
-def principle_detail(request, pk):
+def api_detail(request, materia, pk):
     try:
-        data = my_models.Principle.objects.get(pk=pk)
-    except my_models.Principle.DoesNotExist:
+        data = get_model[materia].objects.get(pk=pk)
+    except get_model[materia].DoesNotExist:
         return Response(status=status.HTTP_404_NOT_FOUND)
 
     if request.method == 'PUT':
-        serializer = PrincipleSerializer(data, data=request.data,context={'request': request})
+        serializer = my_serializers[materia](data, data=request.data,context={'request': request})
         if serializer.is_valid():
             serializer.save()
             return Response(status=status.HTTP_204_NO_CONTENT)

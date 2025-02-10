@@ -6,14 +6,17 @@ import {
   NavLink,
 } from 'reactstrap';
 
-function Navigate(args) {
+function Navigate({changeMateria}) {
   return (
     <div>
       <Navbar>
         <NavbarBrand href="/">Librarian's Journal</NavbarBrand>
           <Nav className="me-auto" navbar>
             <NavItem>
-              <NavLink href="/components/">Principles</NavLink>
+              <NavLink onClick={() => changeMateria("principle")}>Principles</NavLink>
+            </NavItem>
+            <NavItem>
+              <NavLink onClick={() => changeMateria("skill")}>Skills</NavLink>
             </NavItem>
           </Nav>
       </Navbar>

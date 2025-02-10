@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { ButtonGroup, CardFooter, CardGroup, Card, CardBody, CardText, CardTitle } from "reactstrap";
+import { ButtonGroup, CardFooter, CardGroup, Card, CardBody, CardText, CardTitle, Col } from "reactstrap";
 import NewPrincipleModal from "./NewPrincipleModal";
 import ConfirmRemovalModal from "./ConfirmRemovalModal";
 
@@ -10,9 +10,8 @@ class PrincipleList extends Component {
 	return (
 		<CardGroup>
 		{principles.map(principle => (
-			<Card style={{
-				width: '16rem'
-				}}>
+      <Col l="2">
+        <Card>
 				<img src={principle.image} alt={principle.name}></img>
 				<CardBody>
 					<CardTitle tag="h2">{principle.name}</CardTitle>
@@ -33,6 +32,7 @@ class PrincipleList extends Component {
 					</ButtonGroup>
 				</CardFooter>
 			</Card>
+    </Col>
 		))}
 		</CardGroup>
 	);

@@ -9,8 +9,8 @@ urlpatterns = [
     path("<str:materia>/<int:pk>/", views.myDetailView.as_view(), name="detail"),
     path("<str:materia>/edit/<int:pk>/", views.myEditView.as_view(), name="edit"),
     path("<str:materia>/new/", views.myNewView.as_view(), name="new"),
-	re_path(r'^api/principle/$', views.principle_list),
-	re_path(r'^api/principle/([0-9])$', views.principle_detail),
+	path('api/<str:materia>/', views.api_list),
+	path('api/<str:materia>/<int:pk>/', views.api_detail),
 
     # path("principle/new/", views.NewPrincipleView.as_view(), name="principle_new"),
     # path("principle/edit/<int:pk>/", views.EditPrincipleView.as_view(), name="principle_edit"),
