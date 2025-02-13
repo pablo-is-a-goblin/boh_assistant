@@ -1,46 +1,37 @@
-import React, { Component, Fragment, useState } from "react";
+import React, { Fragment, useState } from "react"
 import Home from "./components/Home";
 import Navigate from "./components/Nav"
 import { API_URL } from "./constants";
 
 import axios from "axios";
 
-class App extends Component {
-  state = {
-    materiaURL: API_URL + "principle",
-    data: [],
-  };
+export default function App () {
+  const [materiaType, setMateriaType] = useState("principle");
+  const [materiaData, setMateriaData] = useState([]);
 
-  changeMateria = (new_materia) => {
-    this.setState(previous => ({
-      materiaURL: API_URL + new_materia
-    }));
-    this.resetState();
+  function changeMateria(new_materia) {
+    setMateriaType(new_materia);
+    resetState();
   }
 
-  getData = () => {
-    axios.get(this.state.materiaURL).then(res => this.setState({ data: res.data }));
+  async function getData() {
+    let response = await axios.get(API_URL + materiaType);
+    console.log(response.data);
+    setMateriaData(response.data);
   };
   
-  resetState = () => {
-    this.getData();
+  function resetState() {
+    getData();
   };
 
-  componentDidMount() {
-    this.resetState();
-  }
-
-  render() {
-    return (
-      <Fragment>
-        <Navigate changeMateria={this.changeMateria}/>
-        <Home 
-          materiaData={this.state.data}
-          resetState={this.resetState}/>
-      </Fragment>
-    );
-  }
+  if (materiaData === undefined || materiaData.length === 0)
+    getData();
+  return (
+    <Fragment>
+      <Navigate changeMateria={changeMateria}/>
+      <Home 
+        materiaData={materiaData}
+        resetState={resetState}/>
+    </Fragment>
+  );
 }
-
-
-export default App;

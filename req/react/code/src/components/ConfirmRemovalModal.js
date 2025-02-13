@@ -1,55 +1,46 @@
-import React, { Component, Fragment } from "react";
+import React, { Fragment, useState } from "react";
 import { Modal, ModalHeader, Button, ModalFooter } from "reactstrap";
 
 import axios from "axios";
 
 import { API_URL } from "../constants";
 
-class ConfirmRemovalModal extends Component {
-  state = {
-    modal: false
-  };
+export default function ConfirmRemovalModal ({pk, resetState}) {
+  const [modal, setModal] = useState(false);
 
-  toggle = () => {
-    this.setState(previous => ({
-      modal: !previous.modal
-    }));
-  };
-
-  deletePrinciple = pk => {
-    axios.delete(API_URL + pk).then(() => {
-      this.props.resetState();
-      this.toggle();
-    });
-  };
-
-  render() {
-    return (
-      <Fragment>
-        <Button color="danger" onClick={() => this.toggle()}>
-          Remove
-        </Button>
-        <Modal isOpen={this.state.modal} toggle={this.toggle}>
-          <ModalHeader toggle={this.toggle}>
-            Do you really wanna delete the Principle?
-          </ModalHeader>
-
-          <ModalFooter>
-            <Button type="button" onClick={() => this.toggle()}>
-              Cancel
-            </Button>
-            <Button
-              type="button"
-              color="primary"
-              onClick={() => this.deletePrinciple(this.props.pk)}
-            >
-              Yes
-            </Button>
-          </ModalFooter>
-        </Modal>
-      </Fragment>
-    );
+  function toggle() {
+    setModal(!modal);
   }
-}
 
-export default ConfirmRemovalModal;
+  function deletePrinciple(pk) {
+    axios.delete(API_URL + pk + "/").then(() => {
+      resetState();
+      toggle();
+    });
+  }
+
+  return (
+    <Fragment>
+      <Button color="danger" onClick={() => toggle()}>
+        Remove
+      </Button>
+      <Modal isOpen={modal} toggle={toggle}>
+        <ModalHeader toggle={toggle}>
+          Do you really wanna delete the Principle?
+        </ModalHeader>
+        <ModalFooter>
+          <Button type="button" onClick={() => toggle()}>
+            Cancel
+          </Button>
+          <Button
+            type="button"
+            color="primary"
+            onClick={() => deletePrinciple(pk)}
+          >
+            Yes
+          </Button>
+        </ModalFooter>
+      </Modal>
+    </Fragment>
+  );
+}

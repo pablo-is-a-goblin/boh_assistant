@@ -6,7 +6,7 @@ import {
   NavLink,
 } from 'reactstrap';
 
-function Navigate({changeMateria}) {
+export default function Navigate({changeMateria}) {
   return (
     <div>
       <Navbar>
@@ -23,5 +23,3 @@ function Navigate({changeMateria}) {
     </div>
   );
 }
-
-export default Navigate;
