@@ -3,25 +3,25 @@ import { Button, Form, FormGroup, Input, Label } from "reactstrap";
 import axios from "axios";
 import { API_URL } from "../constants";
 
-export default function NewPrincipleForm ({principle, toggle, resetState}) {
+export default function NewMateriaForm ({materia, toggle, resetState, type}) {
 	const pk = initPk();
 	const [name, setName] = useState(initName);
 	const [description, setDescription] = useState(initDescription);
 	const [image, setImage] = useState(initImage);
 
-	function initPk() { return (principle ? principle.pk : 0) }
-	function initName() { return (principle ? principle.name : "") }
-	function initDescription() { return (principle ? principle.description : "") }
+	function initPk() { return (materia ? materia.pk : 0) }
+	function initName() { return (materia ? materia.name : "") }
+	function initDescription() { return (materia ? materia.description : "") }
 	function initImage() { return ("") }
 
-	function createPrinciple(e) {
+	function createMateria(e) {
 		e.preventDefault();
 		let data = new FormData();
 		data.append("pk", pk);
 		data.append("name", name);
 		data.append("description", description);
 		if (image) {data.append("image", image);};
-		axios.post(API_URL + "principle/", data).then(() => {
+		axios.post(API_URL + type + "/", data).then(() => {
 		  resetState();
 		  toggle();
 		}).catch((error) => {
@@ -30,14 +30,14 @@ export default function NewPrincipleForm ({principle, toggle, resetState}) {
 		);
 	};
 
-	function editPrinciple (e) {
+	function editMateria (e) {
 		e.preventDefault();
 		let data = new FormData();
 		data.append("pk", pk);
 		data.append("name", name);
 		data.append("description", description);
 		if (image) {data.append("image", image);};
-		axios.put(API_URL + "principle/" + pk + "/", data).then(() => {
+		axios.put(API_URL + type + "/" + pk + "/", data).then(() => {
 		  resetState();
 		  toggle();
 		});
@@ -47,16 +47,8 @@ export default function NewPrincipleForm ({principle, toggle, resetState}) {
 		return value === "" ? "" : value;
 	};
 
-	// if (principle) {
-	// 	const { PK, NAME, DESCRIPTION, IMAGE } = principle;
-	// 	setPk(PK);
-	// 	setName(NAME);
-	// 	setDescription(DESCRIPTION);
-	// 	setImage(IMAGE);
-	// }
-
 	return (
-	  <Form onSubmit={principle ? editPrinciple : createPrinciple}>
+	  <Form onSubmit={materia ? editMateria : createMateria}>
 		<FormGroup>
 		  <Label for="name">Name:</Label>
 		  <Input

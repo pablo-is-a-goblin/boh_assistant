@@ -5,7 +5,7 @@ import axios from "axios";
 
 import { API_URL } from "../constants";
 
-export default function ConfirmRemovalModal ({pk, resetState}) {
+export default function ConfirmRemovalModal ({pk, resetState, materiaType}) {
   const [modal, setModal] = useState(false);
 
   function toggle() {
@@ -13,7 +13,7 @@ export default function ConfirmRemovalModal ({pk, resetState}) {
   }
 
   function deletePrinciple(pk) {
-    axios.delete(API_URL + pk + "/").then(() => {
+    axios.delete(API_URL + materiaType + "/" + pk + "/").then(() => {
       resetState();
       toggle();
     });

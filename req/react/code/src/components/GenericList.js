@@ -1,30 +1,32 @@
 import React from "react";
 import { ButtonGroup, CardFooter, CardGroup, Card, CardBody, CardText, CardTitle, Col } from "reactstrap";
-import NewPrincipleModal from "./NewPrincipleModal";
+import NewMateriaModal from "./NewMateriaModal";
 import ConfirmRemovalModal from "./ConfirmRemovalModal";
 
-export default function PrincipleList ({principles, resetState}) {
+export default function GenericList ({data, resetState, materiaType}) {
 	return (
 		<CardGroup>
-		{principles.map(principle => (
+		{data.map(materia => (
       <Col l="2">
         <Card>
-				<img src={principle.image} alt={principle.name}></img>
+				<img src={materia.image} alt={materia.name}></img>
 				<CardBody>
-					<CardTitle tag="h2">{principle.name}</CardTitle>
-					<CardText tag="i">{principle.description}</CardText>
+					<CardTitle tag="h2">{materia.name}</CardTitle>
+					<CardText tag="i">{materia.description}</CardText>
 				</CardBody>
 				<CardFooter>
 					<ButtonGroup>
-	               		<NewPrincipleModal
+	               		<NewMateriaModal
                     	create={false}
-                    	principle={principle}
+                    	materia={materia}
                     	resetState={resetState}
+						materiaType={materiaType}
 						/>
                   	&nbsp;&nbsp;
                   		<ConfirmRemovalModal
-                    	pk={principle.pk}
+                    	pk={materia.pk}
                     	resetState={resetState}
+						materiaType={materiaType}
 						/>
 					</ButtonGroup>
 				</CardFooter>

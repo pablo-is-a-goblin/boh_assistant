@@ -37,7 +37,8 @@ export default function App () {
       <Navigate changeMateria={changeMateria}/>
       <Home 
         materiaData={materiaData}
-        resetState={resetState}/>
+        resetState={resetState}
+        materiaType={materiaType}/>
     </Fragment>
   );
 }

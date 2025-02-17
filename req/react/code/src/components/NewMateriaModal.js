@@ -1,18 +1,18 @@
 import React, { useState, Fragment } from "react";
 import { Button, Modal, ModalHeader, ModalBody } from "reactstrap";
-import NewPrincipleForm from "./NewPrincipleForm";
+import NewMateriaForm from "./NewMateriaForm";
 
-export default function NewPrincipleModal ({create, resetState, principle}) {
+export default function NewMateriaModal ({create, resetState, materia, materiaType}) {
 	const [modal, setModal] = useState(false);
   
 	function toggle () {
 		setModal(!modal);
 	}
 
-	var title = "Editing Principle";
+	var title = "Editing " + materiaType;
 	var button = <Button onClick={toggle}>Edit</Button>;
 	if (create) {
-		title = "Creating New Principle";
+		title = "Creating New " + materiaType;
   
 		button = (
 		  <Button
@@ -32,10 +32,11 @@ export default function NewPrincipleModal ({create, resetState, principle}) {
 	  <Modal isOpen={modal} toggle={toggle}>
 		<ModalHeader toggle={toggle}>{title}</ModalHeader>
 		<ModalBody>
-		  <NewPrincipleForm
+		  <NewMateriaForm
 			resetState={resetState}
 			toggle={toggle}
-			principle={principle}
+			materia={materia}
+			type={materiaType}
 		  />
 		</ModalBody>
 	  </Modal>
