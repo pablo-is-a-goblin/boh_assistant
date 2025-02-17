@@ -1,4 +1,4 @@
-import React, { Fragment, useState } from "react"
+import React, { Fragment, useState, useEffect } from "react"
 import Home from "./components/Home";
 import Navigate from "./components/Nav"
 import { API_URL } from "./constants";
@@ -8,10 +8,18 @@ import axios from "axios";
 export default function App () {
   const [materiaType, setMateriaType] = useState("principle");
   const [materiaData, setMateriaData] = useState([]);
+ 
+// mounted
+  useEffect(() => {
+    getData();
+  }, []);
+
+  useEffect(() => {
+    getData();
+  }, [materiaType]);
 
   function changeMateria(new_materia) {
     setMateriaType(new_materia);
-    resetState();
   }
 
   async function getData() {
@@ -24,8 +32,6 @@ export default function App () {
     getData();
   };
 
-  if (materiaData === undefined || materiaData.length === 0)
-    getData();
   return (
     <Fragment>
       <Navigate changeMateria={changeMateria}/>
