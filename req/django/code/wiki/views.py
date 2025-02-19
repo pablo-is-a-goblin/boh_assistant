@@ -35,12 +35,20 @@ list_des = {
     'book': 'Books are the memory that does not die'
 }
 
-my_serializers = {
+read_serializers = {
     'principle': PrincipleSerializer,
     'tongue': TongueSerializer,
     'skill_label': SkillLabelSerializer,
     'object_label': ObjectLabelSerializer,
-    'skill': SkillSerializer,
+    'skill': ReadSkillSerializer,
+}
+
+write_serializers = {
+    'principle': PrincipleSerializer,
+    'tongue': TongueSerializer,
+    'skill_label': SkillLabelSerializer,
+    'object_label': ObjectLabelSerializer,
+    'skill': WriteSkillSerializer,
 }
 
 form_model = {
@@ -60,12 +68,12 @@ def api_list(request, materia):
     if request.method == 'GET':
         data = get_model[materia].objects.all()
 
-        serializer = my_serializers[materia](data, context={'request': request}, many=True)
+        serializer = read_serializers[materia](data, context={'request': request}, many=True)
 
         return Response(serializer.data)
 
     elif request.method == 'POST':
-        serializer = my_serializers[materia](data=request.data)
+        serializer = write_serializers[materia](data=request.data)
         if serializer.is_valid():
             serializer.save()
             return Response(status=status.HTTP_201_CREATED)
@@ -80,7 +88,7 @@ def api_detail(request, materia, pk):
         return Response(status=status.HTTP_404_NOT_FOUND)
 
     if request.method == 'PUT':
-        serializer = my_serializers[materia](data, data=request.data,context={'request': request})
+        serializer = write_serializers[materia](data, data=request.data,context={'request': request})
         if serializer.is_valid():
             serializer.save()
             return Response(status=status.HTTP_204_NO_CONTENT)

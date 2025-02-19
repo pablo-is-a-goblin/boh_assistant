@@ -12,7 +12,7 @@ export default function ConfirmRemovalModal ({pk, resetState, materiaType}) {
     setModal(!modal);
   }
 
-  function deletePrinciple(pk) {
+  function deleteMateria(pk) {
     axios.delete(API_URL + materiaType + "/" + pk + "/").then(() => {
       resetState();
       toggle();
@@ -26,7 +26,7 @@ export default function ConfirmRemovalModal ({pk, resetState, materiaType}) {
       </Button>
       <Modal isOpen={modal} toggle={toggle}>
         <ModalHeader toggle={toggle}>
-          Do you really wanna delete the Principle?
+          Do you really wanna delete the {materiaType}?
         </ModalHeader>
         <ModalFooter>
           <Button type="button" onClick={() => toggle()}>
@@ -35,7 +35,7 @@ export default function ConfirmRemovalModal ({pk, resetState, materiaType}) {
           <Button
             type="button"
             color="primary"
-            onClick={() => deletePrinciple(pk)}
+            onClick={() => deleteMateria(pk)}
           >
             Yes
           </Button>
