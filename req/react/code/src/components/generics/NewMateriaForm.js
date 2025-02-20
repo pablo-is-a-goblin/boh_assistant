@@ -1,7 +1,7 @@
 import React, {useState} from "react";
 import { Button, Form, FormGroup, Input, Label } from "reactstrap";
 import axios from "axios";
-import { API_URL } from "../constants";
+import { API_URL } from "../../constants";
 
 export default function NewMateriaForm ({materia, toggle, resetState, type}) {
 	const pk = initPk();
