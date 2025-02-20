@@ -34,6 +34,7 @@ export default function NewSkillForm ({materia, toggle, resetState, type}) {
 			if (name.valueOf() === principleData[i].name.valueOf() )
 				return (principleData[i].pk);
 		}
+		return (principleData[0].pk);
 	}
 	function getFormData() {
 		let data = new FormData();

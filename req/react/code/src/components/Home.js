@@ -2,6 +2,7 @@ import React, {useEffect, useState} from "react";
 import { Col, Container, Row } from "reactstrap";
 import GenericList from "./GenericList";
 import NewMateriaModal from "./NewMateriaModal";
+import NewSkillModal from "./skill/NewSkillModal";
 import SkillList from "./skill/SkillList";
 import axios from "axios";
 import { API_URL } from "../constants";
@@ -40,7 +41,7 @@ const [materiaData, setMateriaData] = useState([]);
       resetState={resetState}
       />);
       
-    newModal = (<NewMateriaModal create={true} resetState={resetState} materiaType={materiaType} />);
+    newModal = (<NewSkillModal create={true} resetState={resetState} />);
   }
 
   return (
