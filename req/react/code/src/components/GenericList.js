@@ -5,7 +5,8 @@ import SkillsCard from "./skill/SkillsCard";
 
 export default function GenericList ({data, resetState, materiaType}) {
 	var MateriaCard;
-	if (materiaType.valueOf() === "principle" || materiaType.valueOf() === "skill_label") {
+	if (materiaType.valueOf() === "principle" || materiaType.valueOf() === "skill_label" ||
+		materiaType.valueOf() === "object_label" || materiaType.valueOf() === "tongue") {
 		MateriaCard = GenericsCard;
 	} else if (materiaType.valueOf() === "skill") {
 		MateriaCard = SkillsCard;

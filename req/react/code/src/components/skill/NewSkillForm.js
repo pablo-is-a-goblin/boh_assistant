@@ -52,12 +52,9 @@ export default function NewSkillForm ({materia, toggle, resetState, type}) {
 		data.append("description", description);
 		data.append("principle1", getPrinciplePk(principle1));
 		data.append("principle2", getPrinciplePk(principle2));
-		var aspectsPk = [];
 		for (let i in aspects) {
-			// aspectsPk.push(getAspectPk(aspects[i]))
 			data.append("aspects", getAspectPk(aspects[i]));
 		}
-		// data.append("aspects", aspectsPk);
 		if (image) {data.append("image", image);};
 		return (data);
 	}

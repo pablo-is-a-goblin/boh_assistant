@@ -23,7 +23,8 @@ const [materiaData, setMateriaData] = useState([]);
   };
 
   var newModal;
-  if (materiaType.valueOf() === "principle" || materiaType.valueOf() === "skill_label") {
+  if (materiaType.valueOf() === "principle" || materiaType.valueOf() === "skill_label" || 
+    materiaType.valueOf() === "object_label" || materiaType.valueOf() === "tongue") {
     newModal = (<NewMateriaModal create={true} resetState={resetState} materiaType={materiaType} />);
   } else if (materiaType.valueOf() === "skill" ) {
     newModal = (<NewSkillModal create={true} resetState={resetState} />);
