@@ -11,7 +11,9 @@ return (
             <CardTitle tag="h2">{materia.name}</CardTitle>
             <CardText tag="i">{materia.description}</CardText>
             <CardText><img src={materia.principle1.image} alt={materia.principle1.name}></img>
-            <img src={materia.principle2.image} alt={materia.principle2.name}></img></CardText>
+            <img src={materia.principle2.image} alt={materia.principle2.name}></img>
+            {materia.aspects.map(aspect => <img src={aspect.image} alt={aspect.name}></img>)}
+            </CardText>
         </CardBody>
         <CardFooter>
             <ButtonGroup>

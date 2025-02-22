@@ -12,14 +12,16 @@ export default function NewSkillForm ({materia, toggle, resetState, type}) {
 	const [principle2, setPrinciple2] = useState(initPrinciple2);
 	const [aspects, setAspects] = useState(initAspects);
 	const [principleData, setPrincipleData] = useState([]);
+	const [aspectData, setAspectData] = useState([]);
 
-	async function getPrincipleData() {
+	async function getInitData() {
 		let response = await axios.get(API_URL + "principle");
-		setPrincipleData(response.data);		
-		console.log("YATA");
+		setPrincipleData(response.data);	
+		response = await axios.get(API_URL + "skill_label");
+		setAspectData(response.data);	
 	}
 
-	useEffect(() => {getPrincipleData();}, []);
+	useEffect(() => {getInitData();}, []);
 
 	function initPk() { return (materia ? materia.pk : 0) }
 	function initName() { return (materia ? materia.name : "") }
@@ -27,7 +29,7 @@ export default function NewSkillForm ({materia, toggle, resetState, type}) {
 	function initImage() { return ("") }
 	function initPrinciple1() { return (materia ? materia.principle1.name : "") }
 	function initPrinciple2() { return (materia ? materia.principle2.name : "") }
-	function initAspects() {return (materia ? materia.aspects : [])}
+	function initAspects() {return (materia ? materia.aspects.flatMap(x => x.name) : [])}
 
 	function getPrinciplePk(name) {
 		for (let i in principleData) {
@@ -36,6 +38,13 @@ export default function NewSkillForm ({materia, toggle, resetState, type}) {
 		}
 		return (principleData[0].pk);
 	}
+	function getAspectPk(name) {
+		for (let i in aspectData) {
+			if (name.valueOf() === aspectData[i].name.valueOf() )
+				return (aspectData[i].pk);
+		}
+		return (aspectData[0].pk);
+	}
 	function getFormData() {
 		let data = new FormData();
 		data.append("pk", pk);
@@ -43,7 +52,12 @@ export default function NewSkillForm ({materia, toggle, resetState, type}) {
 		data.append("description", description);
 		data.append("principle1", getPrinciplePk(principle1));
 		data.append("principle2", getPrinciplePk(principle2));
-		if (aspects.length) {data.append("aspects", aspects);};
+		var aspectsPk = [];
+		for (let i in aspects) {
+			// aspectsPk.push(getAspectPk(aspects[i]))
+			data.append("aspects", getAspectPk(aspects[i]));
+		}
+		// data.append("aspects", aspectsPk);
 		if (image) {data.append("image", image);};
 		return (data);
 	}
@@ -72,6 +86,18 @@ export default function NewSkillForm ({materia, toggle, resetState, type}) {
 	function defaultIfEmpty (value) {
 		return value === "" ? "" : value;
 	};
+
+	function updateAspects (value) {
+		console.log(value);
+		if (aspects.indexOf(value) === -1) {
+			setAspects([...aspects, value])
+		} else {
+			console.log("HERE")
+			setAspects(
+				aspects.filter(a => a !== value)
+			)
+		}
+	}
 
 	return (
 		principleData.length &&
@@ -124,6 +150,20 @@ export default function NewSkillForm ({materia, toggle, resetState, type}) {
 			))}
 		  </Input>
 		</FormGroup>
+		Aspects:
+		{aspectData.map(aspect => (
+		<FormGroup check>
+			<Input
+			  id={aspect.name}
+			  type="checkbox"
+			  onChange={() => updateAspects(aspect.name)}
+			  checked={aspects.includes(aspect.name)}
+			/>
+			<Label check>
+			  {aspect.name}
+			</Label>
+		</FormGroup>
+		))}
 		<FormGroup>
 		  <Label for="image">Image:</Label>
 		  <Input

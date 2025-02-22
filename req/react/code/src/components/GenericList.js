@@ -5,13 +5,12 @@ import SkillsCard from "./skill/SkillsCard";
 
 export default function GenericList ({data, resetState, materiaType}) {
 	var MateriaCard;
-	if (materiaType.valueOf() === "principle") {
+	if (materiaType.valueOf() === "principle" || materiaType.valueOf() === "skill_label") {
 		MateriaCard = GenericsCard;
 	} else if (materiaType.valueOf() === "skill") {
 		MateriaCard = SkillsCard;
 	}
-	
-	console.log(MateriaCard);
+
 	return (
 		data.map(materia => (
 			<MateriaCard key={materia.pk} materia={materia} materiaType={materiaType} resetState={resetState} />

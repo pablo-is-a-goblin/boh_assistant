@@ -18,6 +18,9 @@ export default function Navigate({changeMateria}) {
             <NavItem>
               <NavLink onClick={() => changeMateria("skill")}>Skills</NavLink>
             </NavItem>
+            <NavItem>
+              <NavLink onClick={() => changeMateria("skill_label")}>Skill Labels</NavLink>
+            </NavItem>
           </Nav>
       </Navbar>
     </div>

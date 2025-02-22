@@ -19,12 +19,11 @@ const [materiaData, setMateriaData] = useState([]);
 
   async function getData() {
     let response = await axios.get(API_URL + materiaType);
-    console.log(response.data);
     setMateriaData(response.data);
   };
 
   var newModal;
-  if (materiaType.valueOf() === "principle") {
+  if (materiaType.valueOf() === "principle" || materiaType.valueOf() === "skill_label") {
     newModal = (<NewMateriaModal create={true} resetState={resetState} materiaType={materiaType} />);
   } else if (materiaType.valueOf() === "skill" ) {
     newModal = (<NewSkillModal create={true} resetState={resetState} />);
