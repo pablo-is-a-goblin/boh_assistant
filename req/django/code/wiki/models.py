@@ -122,9 +122,11 @@ class Book(models.Model):
         return self.name
 
 class ObjectHasPrinciple(models.Model):
-    obj = models.ForeignKey(Object, on_delete=models.PROTECT)
+    obj = models.ForeignKey(Object, on_delete=models.CASCADE)
     principle = models.ForeignKey(Principle, on_delete=models.CASCADE)
     qty = models.IntegerField()
+    class Meta:
+        unique_together = ['obj', 'principle']
 
 class Craft(models.Model):
     skill = models.ForeignKey(Skill, on_delete=models.CASCADE)

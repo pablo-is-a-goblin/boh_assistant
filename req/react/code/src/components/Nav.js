@@ -24,8 +24,11 @@ export default function Navigate({changeMateria}) {
             <NavItem>
               <NavLink onClick={() => changeMateria("object_label")}>Object Labels</NavLink>
             </NavItem>
-              <NavLink onClick={() => changeMateria("tongue")}>Tongues</NavLink>
             <NavItem>
+              <NavLink onClick={() => changeMateria("tongue")}>Tongues</NavLink>
+            </NavItem>
+            <NavItem>
+              <NavLink onClick={() => changeMateria("memory")}>Memories</NavLink>
             </NavItem>
           </Nav>
       </Navbar>

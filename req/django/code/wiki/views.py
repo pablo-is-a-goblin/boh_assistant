@@ -41,6 +41,7 @@ read_serializers = {
     'skill_label': SkillLabelSerializer,
     'object_label': ObjectLabelSerializer,
     'skill': ReadSkillSerializer,
+    'memory': ReadMemorySerializer,
 }
 
 write_serializers = {
@@ -49,6 +50,7 @@ write_serializers = {
     'skill_label': SkillLabelSerializer,
     'object_label': ObjectLabelSerializer,
     'skill': WriteSkillSerializer,
+    'memory': WriteMemorySerializer,
 }
 
 form_model = {
