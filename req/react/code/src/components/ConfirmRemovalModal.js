@@ -3,9 +3,9 @@ import { Modal, ModalHeader, Button, ModalFooter } from "reactstrap";
 
 import axios from "axios";
 
-import { API_URL } from "../constants";
+import { API_URL, CONF } from "../constants";
 
-export default function ConfirmRemovalModal ({pk, resetState, materiaType}) {
+export default function ConfirmRemovalModal ({pk, resetState, materiaType, name}) {
   const [modal, setModal] = useState(false);
 
   function toggle() {
@@ -26,7 +26,7 @@ export default function ConfirmRemovalModal ({pk, resetState, materiaType}) {
       </Button>
       <Modal isOpen={modal} toggle={toggle}>
         <ModalHeader toggle={toggle}>
-          Do you really wanna delete the {materiaType}?
+          Do you really wanna delete the {name} {CONF[materiaType].pretty}?
         </ModalHeader>
         <ModalFooter>
           <Button type="button" onClick={() => toggle()}>

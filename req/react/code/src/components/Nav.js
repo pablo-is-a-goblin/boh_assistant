@@ -5,31 +5,23 @@ import {
   NavItem,
   NavLink,
 } from 'reactstrap';
+import { CONF } from '../constants';
 
 export default function Navigate({changeMateria}) {
+  const links = [];
+  for (let materia in CONF) {
+    links.push(
+    <NavItem>
+      <NavLink onClick={() => changeMateria(materia)}>{CONF[materia].pretties}</NavLink>
+    </NavItem>
+    )}
+
   return (
     <div>
       <Navbar>
         <NavbarBrand href="/">Librarian's Journal</NavbarBrand>
           <Nav className="me-auto" navbar>
-            <NavItem>
-              <NavLink onClick={() => changeMateria("principle")}>Principles</NavLink>
-            </NavItem>
-            <NavItem>
-              <NavLink onClick={() => changeMateria("skill")}>Skills</NavLink>
-            </NavItem>
-            <NavItem>
-              <NavLink onClick={() => changeMateria("skill_label")}>Skill Labels</NavLink>
-            </NavItem>
-            <NavItem>
-              <NavLink onClick={() => changeMateria("object_label")}>Object Labels</NavLink>
-            </NavItem>
-            <NavItem>
-              <NavLink onClick={() => changeMateria("tongue")}>Tongues</NavLink>
-            </NavItem>
-            <NavItem>
-              <NavLink onClick={() => changeMateria("memory")}>Memories</NavLink>
-            </NavItem>
+            {links}
           </Nav>
       </Navbar>
     </div>

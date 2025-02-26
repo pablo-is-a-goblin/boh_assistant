@@ -27,6 +27,7 @@ return (
                 pk={materia.pk}
                 resetState={resetState}
                 materiaType="skill"
+                name={materia.name}
                 />
             </ButtonGroup>
         </CardFooter>

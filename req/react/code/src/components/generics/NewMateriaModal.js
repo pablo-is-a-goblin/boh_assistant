@@ -1,6 +1,7 @@
 import React, { useState, Fragment } from "react";
 import { Button, Modal, ModalHeader, ModalBody } from "reactstrap";
 import NewMateriaForm from "./NewMateriaForm";
+import { CONF } from "../../constants";
 
 export default function NewMateriaModal ({create, resetState, materia, materiaType}) {
 	const [modal, setModal] = useState(false);
@@ -9,10 +10,10 @@ export default function NewMateriaModal ({create, resetState, materia, materiaTy
 		setModal(!modal);
 	}
 
-	var title = "Editing " + materiaType;
+	var title = "Editing " + CONF[materiaType].pretty;
 	var button = <Button onClick={toggle}>Edit</Button>;
 	if (create) {
-		title = "Creating New " + materiaType;
+		title = "Creating New " + CONF[materiaType].pretty;
   
 		button = (
 		  <Button

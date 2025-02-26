@@ -32,6 +32,7 @@ return (
                 pk={materia.pk}
                 resetState={resetState}
                 materiaType="memory"
+                name={materia.name}
                 />
             </ButtonGroup>
         </CardFooter>

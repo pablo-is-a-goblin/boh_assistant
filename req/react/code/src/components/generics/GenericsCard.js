@@ -24,6 +24,7 @@ export default function GenericsCard ({materia, materiaType, resetState}) {
             pk={materia.pk}
             resetState={resetState}
             materiaType={materiaType}
+            name={materia.name}
             />
         </ButtonGroup>
     </CardFooter>
