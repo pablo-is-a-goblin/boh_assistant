@@ -19,7 +19,7 @@ export default function Navigate({changeMateria}) {
   return (
     <div>
       <Navbar>
-        <NavbarBrand href="/">Librarian's Journal</NavbarBrand>
+        <NavbarBrand href="/">The Librarian's Journal</NavbarBrand>
           <Nav className="me-auto" navbar>
             {links}
           </Nav>
