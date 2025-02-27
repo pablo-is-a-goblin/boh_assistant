@@ -5,19 +5,19 @@ import ConfirmRemovalModal from "../ConfirmRemovalModal";
 
 export default function MemoryCard({materia, materiaType, resetState}) {
 return (
-    <Card>
+    <Card className="materia-card-img">
         <img src={materia.image} alt={materia.name}></img>
         <CardBody>
             <CardTitle tag="h2">{materia.name}</CardTitle>
             <CardText tag="i">{materia.description}</CardText>
             {materia.principles.map(principle => (
             <CardText>
-                <img src={principle.principle.image} alt={principle.principle.name} />
+                <img className="materia-label" src={principle.principle.image} alt={principle.principle.name} />
                 {principle.qty}
             </CardText>
             ))}
             <CardText>
-             {materia.aspects.map(aspect => <img src={aspect.image} alt={aspect.name} />)}
+             {materia.aspects.map(aspect => <img className="materia-label" src={aspect.image} alt={aspect.name} />)}
             </CardText>
         </CardBody>
         <CardFooter>

@@ -1,25 +1,20 @@
 import React from "react";
 import { Card, CardBody, CardFooter, CardTitle, CardText, ButtonGroup } from "reactstrap";
-import NewSkillModal from "./NewSkillModal";
+import NewBookModal from "./NewBookModal";
 import ConfirmRemovalModal from "../ConfirmRemovalModal";
 
-export default function SkillsCard({materia, materiaType, resetState}) {
+export default function BookCard({materia, materiaType, resetState}) {
 return (
     <Card className="materia-card-img">
         <img src={materia.image} alt={materia.name}></img>
         <CardBody>
             <CardTitle tag="h2">{materia.name}</CardTitle>
             <CardText tag="i">{materia.description}</CardText>
-            <CardText><img className="materia-label" src={materia.principle1.image} alt={materia.principle1.name}></img>
-            <img className="materia-label" src={materia.principle2.image} alt={materia.principle2.name}></img>
-            </CardText>
-            <CardText>
-            {materia.aspects.map(aspect => <img className="materia-label" src={aspect.image} alt={aspect.name}></img>)}
-            </CardText>
+            <CardText><img className="materia-label" src={materia.mistery.image} alt={materia.mistery.name} />{materia.dificulty}</CardText>
         </CardBody>
         <CardFooter>
             <ButtonGroup>
-                <NewSkillModal
+                <NewBookModal
                 create={false}
                 materia={materia}
                 resetState={resetState}
@@ -28,7 +23,7 @@ return (
                 <ConfirmRemovalModal
                 pk={materia.pk}
                 resetState={resetState}
-                materiaType="skill"
+                materiaType={materiaType}
                 name={materia.name}
                 />
             </ButtonGroup>

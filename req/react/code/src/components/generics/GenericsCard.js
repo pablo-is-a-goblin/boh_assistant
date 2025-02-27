@@ -5,7 +5,7 @@ import ConfirmRemovalModal from "../ConfirmRemovalModal";
 
 export default function GenericsCard ({materia, materiaType, resetState}) {
     return (
-<Card>
+<Card className="materia-card-img">
     <img src={materia.image} alt={materia.name}></img>
     <CardBody>
         <CardTitle tag="h2">{materia.name}</CardTitle>

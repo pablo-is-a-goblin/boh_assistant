@@ -11,3 +11,11 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.materia-label {
+  max-width: 40px;
+}
+
+.materia-card-img {
+  max-width: 350px;
+}

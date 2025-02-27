@@ -4,6 +4,8 @@ import NewMemoryModal from "../components/memory/NewMemoryModal";
 import MemoryCard from "../components/memory/MemoryCard";
 import NewSkillModal from "../components/skill/NewSkillModal";
 import SkillsCard from "../components/skill/SkillsCard";
+import NewBookModal from "../components/book/NewBookModal";
+import BookCard from "../components/book/BookCard";
 
 export const API_URL = "http://localhost:8080/wiki/api/";
 
@@ -59,5 +61,7 @@ export const CONF = {
         pretty: "Book",
         pretties: "Books",
         type: 'book',
+        modal: NewBookModal,
+        card: BookCard,
     }
 }

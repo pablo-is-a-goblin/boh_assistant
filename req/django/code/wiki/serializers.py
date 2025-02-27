@@ -111,7 +111,6 @@ class WriteMemorySerializer(serializers.ModelSerializer):
 					ohp.qty = qty
 					ohp.save()
 			except:
-				print("NOOO")
 				my_models.ObjectHasPrinciple.objects.create(obj=instance, principle=principle, qty=qty)
 
 		instance.name = validated_data.get("name", instance.name)
@@ -121,12 +120,32 @@ class WriteMemorySerializer(serializers.ModelSerializer):
 		instance.save()
 		return instance
 
+class ReadBookSerializer(serializers.ModelSerializer):
+	tongue = TongueSerializer(allow_null=True)
+	mistery = PrincipleSerializer()
+	memory = ReadMemorySerializer(allow_null=True)
 
-# class ReadBookSerializer(serializers.ModelSerializer):
+	class Meta:
+		model = my_models.Book
+		list_field = ['pk']
+		list_field.extend(model.get_params())
+		fields = list_field
+		
+class WriteBookSerializer(serializers.ModelSerializer):
+	tongue = serializers.PrimaryKeyRelatedField(
+		queryset=my_models.Tongue.objects.all(),
+		allow_null=True)
+	
+	mistery = serializers.PrimaryKeyRelatedField(
+		queryset=my_models.Principle.objects.all(),)
+	
+	memory = serializers.PrimaryKeyRelatedField(
+		queryset=my_models.Object.objects.filter(object_type="MEMORY"),
+		allow_null=True)
 
-# 	class Meta:
-# 		model = my_models.Book
-# 		list_field = ['pk']
-# 		list_field.extend(model.get_params())
-# 		fields = list_field
+	class Meta:
+		model = my_models.Book
+		list_field = ['pk']
+		list_field.extend(model.get_params())
+		fields = list_field
 		
