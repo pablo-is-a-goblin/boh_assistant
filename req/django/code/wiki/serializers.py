@@ -88,6 +88,8 @@ class WriteMemorySerializer(serializers.ModelSerializer):
 		memory.aspects.set(aspects)
 		memory.save()
 		for principle_str in principles_data:
+			if (len(principle_str) < 3):
+				continue
 			principle_list = principle_str.split(':')
 			principle = my_models.Principle.objects.get(pk=int(principle_list[0]))
 			qty = int(principle_list[1])
@@ -102,7 +104,10 @@ class WriteMemorySerializer(serializers.ModelSerializer):
 		for principle_str in principles_data:
 			principle_list = principle_str.split(':')
 			principle = my_models.Principle.objects.get(pk=int(principle_list[0]))
-			qty = int(principle_list[1])
+			if (len(principle_str) < 3):
+				qty = 0;
+			else:
+				qty = int(principle_list[1])
 			try:
 				ohp = my_models.ObjectHasPrinciple.objects.get(obj=instance, principle=principle)
 				if qty == 0:
