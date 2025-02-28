@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from "react";
-import { Button, Form, FormGroup, Input, Label } from "reactstrap";
+import { Button, Form, FormGroup, Input, Label, Col, InputGroup, InputGroupText } from "reactstrap";
 import axios from "axios";
 import { API_URL } from "../../constants";
 
@@ -117,19 +117,23 @@ export default function NewMemoryForm ({materia, toggle, resetState, type}) {
 			value={defaultIfEmpty(description)}
 		  />
 		</FormGroup>
-		Principle:
-		{principleData.map(principle => (
+		<h5>Principles: </h5>
 		<FormGroup row>
-			<Label for={principle.name}>{principle.name}: </Label>
+		{principleData.map(principle => (
+			<InputGroup>
+			<InputGroupText>
+				<img className="materia-label" src={principle.image} alt={principle.name}></img>
+			</InputGroupText>
 			<Input
 				type="number"
 				name={principle.name}
 				onChange={e => setPrincipleQty({...principleQty, [principle.name]: e.target.value})}
 				value={principleQty[principle.name]}
-			/>
-		</FormGroup>
+				/>
+			</InputGroup>
 		))}
-		Aspects:
+		</FormGroup>
+		<h5>Aspects: </h5>
 		{aspectData.map(aspect => (
 		<FormGroup check>
 			<Input
@@ -139,7 +143,7 @@ export default function NewMemoryForm ({materia, toggle, resetState, type}) {
 			  checked={aspects.includes(aspect.name)}
 			/>
 			<Label check>
-			  {aspect.name}
+			  {aspect.name}    <img src={aspect.image} alt={aspect.name} className="materia-label" />
 			</Label>
 		</FormGroup>
 		))}

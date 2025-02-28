@@ -25,9 +25,7 @@ const [materiaData, setMateriaData] = useState([]);
   return (
     <Container style={{ marginTop: "20px" }}>
       <Row>
-        <Col>
           <GenericList data={materiaData} resetState={resetState} materiaType={materiaType}/>
-        </Col>
       </Row>
       <Row>
         <Col>

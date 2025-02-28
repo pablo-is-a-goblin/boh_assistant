@@ -10,13 +10,15 @@ return (
         <CardBody>
             <CardTitle tag="h2">{materia.name}</CardTitle>
             <CardText tag="i">{materia.description}</CardText>
+            <CardText tag="h3" className="text-center">
             {materia.principles.map(principle => (
-            <CardText>
-                <img className="materia-label" src={principle.principle.image} alt={principle.principle.name} />
-                {principle.qty}
-            </CardText>
+                <>
+                <img className="materia-label" src={principle.principle.image} alt={principle.principle.name} />{principle.qty}
+                <i className="bi bi-bar-chart text-info" style={{ fontSize: 40 }}></i>
+                </>
             ))}
-            <CardText>
+            </CardText>
+            <CardText className="text-center">
              {materia.aspects.map(aspect => <img className="materia-label" src={aspect.image} alt={aspect.name} />)}
             </CardText>
         </CardBody>

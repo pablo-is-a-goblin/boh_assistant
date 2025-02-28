@@ -1,10 +1,11 @@
 import React, {useState, useEffect} from "react";
-import { Button, Form, FormGroup, Input, Label } from "reactstrap";
+import { Button, Form, FormGroup, Input, Label, Collapse } from "reactstrap";
 import axios from "axios";
 import { API_URL } from "../../constants";
 
 export default function NewBookForm ({materia, toggle, resetState, type}) {
 	const pk = initValue("pk");
+	const [isOpen, setOpen] = useState(false);
 	const [name, setName] = useState(initValue("name"));
 	const [description, setDescription] = useState(initValue("description"));
 	const [image, setImage] = useState(initImage);
@@ -19,6 +20,8 @@ export default function NewBookForm ({materia, toggle, resetState, type}) {
 	const [principleData, setPrincipleData] = useState([]);
 	const [memoryData, setMemoryData] = useState([]);
 	const [tongueData, setTongueData] = useState([]);
+
+	const toggleAdvanced = () => setOpen(!isOpen);
 
 	async function getInitData() {
 		let response = await axios.get(API_URL + "principle");
@@ -115,6 +118,54 @@ export default function NewBookForm ({materia, toggle, resetState, type}) {
 		  />
 		</FormGroup>
 		<FormGroup>
+		  <Label for="dificulty">Difficulty:</Label>
+		  <Input
+			type="number"
+			name="dificulty"
+			onChange={e => setDificulty(e.target.value)}
+			value={defaultIfEmpty(dificulty)}
+		  />
+		</FormGroup>
+		<FormGroup>
+		<Label for="mistery">Mistery:</Label>
+		<Input
+			type="select"
+			name="mistery"
+			onChange={e => setMistery(e.target.value)}
+			value={defaultIfEmpty(mistery)}>
+			{principleData.map( principle => (
+				<option>
+					{principle.name}
+				</option>
+			))}
+		</Input>
+		</FormGroup>
+		<FormGroup>
+		  <Label for="image">Image:</Label>
+		  <Input
+			type="file"
+			name="image"
+			onChange={e => setImage(e.target.files[0])}
+		  />
+		</FormGroup>
+		<FormGroup>
+		<Label for="memory">Memory produced:</Label>
+		<Input
+			type="select"
+			name="memory"
+			onChange={e => setMemory(e.target.value)}
+			value={defaultIfEmpty(memory)}>
+			<option></option>
+			{memoryData.map( principle => (
+				<option>
+					{principle.name}
+				</option>
+			))}
+		</Input>
+		</FormGroup>
+		<Button onClick={toggleAdvanced}>Advanced Options</Button>
+		<Collapse isOpen={isOpen}>
+		<FormGroup>
 		  <Label for="tally">Tally:</Label>
 		  <Input
 			type="number"
@@ -142,29 +193,6 @@ export default function NewBookForm ({materia, toggle, resetState, type}) {
 		  />
 		</FormGroup>
 		<FormGroup>
-		  <Label for="dificulty">Difficulty:</Label>
-		  <Input
-			type="number"
-			name="dificulty"
-			onChange={e => setDificulty(e.target.value)}
-			value={defaultIfEmpty(dificulty)}
-		  />
-		</FormGroup>
-		<FormGroup>
-		<Label for="mistery">Mistery:</Label>
-		<Input
-			type="select"
-			name="mistery"
-			onChange={e => setMistery(e.target.value)}
-			value={defaultIfEmpty(mistery)}>
-			{principleData.map( principle => (
-				<option>
-					{principle.name}
-				</option>
-			))}
-		</Input>
-		</FormGroup>
-		<FormGroup>
 		<Label for="tongue">Tongue:</Label>
 		<Input
 			type="select"
@@ -179,29 +207,7 @@ export default function NewBookForm ({materia, toggle, resetState, type}) {
 			))}
 		</Input>
 		</FormGroup>
-		<FormGroup>
-		<Label for="memory">Memory:</Label>
-		<Input
-			type="select"
-			name="memory"
-			onChange={e => setMemory(e.target.value)}
-			value={defaultIfEmpty(memory)}>
-			<option></option>
-			{memoryData.map( principle => (
-				<option>
-					{principle.name}
-				</option>
-			))}
-		</Input>
-		</FormGroup>
-		<FormGroup>
-		  <Label for="image">Image:</Label>
-		  <Input
-			type="file"
-			name="image"
-			onChange={e => setImage(e.target.files[0])}
-		  />
-		</FormGroup>
+		</Collapse>
 		<Button>Send</Button>
 	  </Form>
 	);

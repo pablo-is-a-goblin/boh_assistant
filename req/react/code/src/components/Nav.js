@@ -12,7 +12,7 @@ export default function Navigate({changeMateria}) {
   for (let materia in CONF) {
     links.push(
     <NavItem>
-      <NavLink onClick={() => changeMateria(materia)}>{CONF[materia].pretties}</NavLink>
+      <NavLink key={materia} onClick={() => changeMateria(materia)}>{CONF[materia].pretties}</NavLink>
     </NavItem>
     )}
 
