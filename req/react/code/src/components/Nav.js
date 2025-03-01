@@ -11,14 +11,14 @@ export default function Navigate({changeMateria}) {
   const links = [];
   for (let materia in CONF) {
     links.push(
-    <NavItem>
-      <NavLink key={materia} onClick={() => changeMateria(materia)}>{CONF[materia].pretties}</NavLink>
+    <NavItem key={materia}>
+      <NavLink onClick={() => changeMateria(materia)}>{CONF[materia].pretties}</NavLink>
     </NavItem>
     )}
 
   return (
     <div>
-      <Navbar>
+      <Navbar expand="lg">
         <NavbarBrand href="/">The Librarian's Journal</NavbarBrand>
           <Nav className="me-auto" navbar>
             {links}

@@ -20,14 +20,14 @@ export default function GenericList ({data, resetState, materiaType}) {
 	row[0] = []
 	for (i in data) {
 		materia = data[i];
-		row[Math.floor(i / 3)].push(<Col><MateriaCard key={materia.pk} materia={materia} materiaType={materiaType} resetState={resetState} /></Col>)
+		row[Math.floor(i / 3)].push(<Col key={materia.pk}><MateriaCard key={materia.pk} materia={materia} materiaType={materiaType} resetState={resetState} /></Col>)
 		if ((i + 1) % 3 === 0) {
-			deck.push(<Row>{row[Math.floor(i / 3)]}</Row>)
+			deck.push(<Row key={Math.floor(i / 3)}>{row[Math.floor(i / 3)]}</Row>)
 			row[Math.floor(i / 3) + 1] = [];
 		}
 	}
 	if ((i + 1) % 3 !== 0) {
-		deck.push(<Row>{row[Math.floor(i / 3)]}</Row>);
+		deck.push(<Row key={Math.floor(i / 3)}>{row[Math.floor(i / 3)]}</Row>);
 	}
 
 	return (

@@ -24,10 +24,10 @@ const [materiaData, setMateriaData] = useState([]);
 
   return (
     <Container style={{ marginTop: "20px" }}>
-      <Row>
+      <Row key="list">
           <GenericList data={materiaData} resetState={resetState} materiaType={materiaType}/>
       </Row>
-      <Row>
+      <Row key="new">
         <Col>
           <NewModal create={true} resetState={resetState} materiaType={materiaType}/>
         </Col>
