@@ -6,6 +6,10 @@ import NewSkillModal from "../components/skill/NewSkillModal";
 import SkillsCard from "../components/skill/SkillsCard";
 import NewBookModal from "../components/book/NewBookModal";
 import BookCard from "../components/book/BookCard";
+import GenericDetail from "../components/generics/GenericDetail";
+import BookDetail from "../components/book/BookDetail";
+import SkillDetail from "../components/skill/SkillDetail";
+import MemoryDetail from "../components/memory/MemoryDetail";
 
 export const API_URL = "http://localhost:8080/wiki/api/";
 
@@ -16,6 +20,7 @@ export const CONF = {
         type: 'principle',
         modal: NewMateriaModal,
         card: GenericsCard,
+        detail: GenericDetail,
     },
     skill: {
         pretty: "Skill",
@@ -23,6 +28,7 @@ export const CONF = {
         type: 'skill',
         modal: NewSkillModal,
         card: SkillsCard,
+        detail: SkillDetail,
 
     },
     skill_label: {
@@ -31,6 +37,7 @@ export const CONF = {
         type: 'skill_label',
         modal: NewMateriaModal,
         card: GenericsCard,
+        detail: GenericDetail,
 
     },
     object_label: {
@@ -39,6 +46,7 @@ export const CONF = {
         type: 'object_label',
         modal: NewMateriaModal,
         card: GenericsCard,
+        detail: GenericDetail,
 
     },
     tongue: {
@@ -47,6 +55,7 @@ export const CONF = {
         type: "tongue",
         modal: NewMateriaModal,
         card: GenericsCard,
+        detail: GenericDetail,
 
     },
     memory: {
@@ -55,6 +64,7 @@ export const CONF = {
         type: "memory",
         modal: NewMemoryModal,
         card: MemoryCard,
+        detail: MemoryDetail,
 
     },
     book: {
@@ -63,5 +73,7 @@ export const CONF = {
         type: 'book',
         modal: NewBookModal,
         card: BookCard,
+        detail: BookDetail,
+
     }
 }

@@ -4,7 +4,7 @@ import GenericList from "./GenericList";
 import axios from "axios";
 import { API_URL, CONF } from "../constants";
 
-export default function Home ({materiaType}) {
+export default function Home ({materiaType, changePk}) {
 const [materiaData, setMateriaData] = useState([]);
 
   useEffect(() => {
@@ -25,7 +25,7 @@ const [materiaData, setMateriaData] = useState([]);
   return (
     <Container style={{ marginTop: "20px" }}>
       <Row key="list">
-          <GenericList data={materiaData} resetState={resetState} materiaType={materiaType}/>
+          <GenericList data={materiaData} resetState={resetState} materiaType={materiaType} changePk={changePk}/>
       </Row>
       <Row key="new">
         <Col>

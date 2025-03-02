@@ -1,9 +1,9 @@
 import React from "react";
-import { Card, CardBody, CardFooter, CardTitle, CardText, ButtonGroup } from "reactstrap";
+import { Card, CardBody, CardFooter, CardTitle, CardText, ButtonGroup, Button } from "reactstrap";
 import NewBookModal from "./NewBookModal";
 import ConfirmRemovalModal from "../ConfirmRemovalModal";
 
-export default function BookCard({materia, materiaType, resetState}) {
+export default function BookCard({materia, materiaType, resetState, changePk}) {
     var mat_img;
     if (materia.image) {
         mat_img = <img src={materia.image} alt={materia.name}></img>;
@@ -24,6 +24,10 @@ return (
                 materia={materia}
                 resetState={resetState}
                 />
+            &nbsp;&nbsp;
+            <Button onClick={() => changePk(materia.pk)}>
+                See Detail
+            </Button>
             &nbsp;&nbsp;
                 <ConfirmRemovalModal
                 pk={materia.pk}

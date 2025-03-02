@@ -84,7 +84,7 @@ def api_list(request, materia):
 
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-@api_view(['PUT', 'DELETE'])
+@api_view(['PUT', 'DELETE', 'GET'])
 def api_detail(request, materia, pk):
     try:
         data = get_model[materia].objects.get(pk=pk)
@@ -101,6 +101,11 @@ def api_detail(request, materia, pk):
     elif request.method == 'DELETE':
         data.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
+    
+    elif request.method == 'GET':
+        serializer = read_serializers[materia](data, context={'request': request})
+
+        return Response(serializer.data)
 
 class myListView(generic.ListView):
     template_name = "wiki/list.html"
