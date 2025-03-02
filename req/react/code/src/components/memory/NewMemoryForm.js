@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from "react";
-import { Button, Form, FormGroup, Input, Label, Col, InputGroup, InputGroupText } from "reactstrap";
+import { Button, Form, FormGroup, Input, Label, InputGroup, InputGroupText } from "reactstrap";
 import axios from "axios";
 import { API_URL } from "../../constants";
 
@@ -89,7 +89,6 @@ export default function NewMemoryForm ({materia, toggle, resetState, type}) {
 		if (aspects.indexOf(value) === -1) {
 			setAspects([...aspects, value])
 		} else {
-			console.log("HERE")
 			setAspects(
 				aspects.filter(a => a !== value)
 			)

@@ -7,14 +7,20 @@ import {
 } from 'reactstrap';
 import { CONF } from '../constants';
 
-export default function Navigate({changeMateria}) {
+export default function Navigate({changeMateria, changePk, materiaType}) {
   const links = [];
   for (let materia in CONF) {
-    links.push(
+    if (CONF[materia].type === materiaType)
+      links.push(
     <NavItem key={materia}>
-      <NavLink onClick={() => changeMateria(materia)}>{CONF[materia].pretties}</NavLink>
-    </NavItem>
-    )}
+      <NavLink className="active" onClick={() => {changeMateria(materia); changePk("")}}>{CONF[materia].pretties}</NavLink>
+    </NavItem>)
+    else
+      links.push(
+      <NavItem key={materia}>
+        <NavLink onClick={() => {changeMateria(materia); changePk("")}}>{CONF[materia].pretties}</NavLink>
+      </NavItem>)
+    }
 
   return (
     <div>
