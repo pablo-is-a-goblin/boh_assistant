@@ -93,12 +93,14 @@ class Skill(models.Model):
     products = models.ManyToManyField(Object, through='Craft', through_fields=('skill', 'product'), blank=True)
     aspects = models.ManyToManyField(SkillLabel, blank=True)
     image = models.ImageField(upload_to='skills', blank=True)
+    wisdom1 = models.TextField(blank=True)
+    wisdom2 = models.TextField(blank=True)
 
     class Meta:
         ordering = ["name"]
 
     def get_params():
-        return ["name", "description", "principle1", "principle2", "aspects", "image"]
+        return ["name", "description", "principle1", "principle2", "aspects", "image", "wisdom1", "wisdom2"]
     def __str__(self):
         return self.name
 
