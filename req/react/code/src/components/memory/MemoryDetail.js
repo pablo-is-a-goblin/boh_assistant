@@ -17,7 +17,7 @@ export default function MemoryDetail({materiaType, materiaPk, changeMateria, cha
         <Container>
             <Row>
             <Col xs="9">
-                <h1>{data.name}</h1><bk/>
+                <h1>{data.name}</h1>
                 <i>{data.description}</i>
             </Col>
             <Col xs="3">

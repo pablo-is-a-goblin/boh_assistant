@@ -15,12 +15,15 @@ export default function App () {
     setMateriaPk(new_pk);
   }
 
+
   var MainPage;
   if (materiaPk !== "") {
     MainPage = CONF[materiaType].detail;
     MainPage = <MainPage 
     materiaType={materiaType} 
-    materiaPk={materiaPk}/>
+    materiaPk={materiaPk}
+    changeMateria={changeMateria}
+    changePk={changePk}/>
   }  else
     MainPage = <Home
     key={materiaType}

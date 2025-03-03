@@ -17,7 +17,7 @@ export default function SkillDetail({materiaType, materiaPk, changeMateria, chan
         <Container>
             <Row>
             <Col xs="9">
-                <h1>{data.name}</h1><bk/>
+                <h1>{data.name}</h1>
                 <i>{data.description}</i>
             </Col>
             <Col xs="3">
