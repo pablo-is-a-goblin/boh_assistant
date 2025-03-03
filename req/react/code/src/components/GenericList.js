@@ -1,10 +1,8 @@
 import React from "react";
 import { Col, Row} from "reactstrap";
-import { CONF } from "../constants";
-
+import MateriaCard from "./MateriaCard";
 
 export default function GenericList ({data, resetState, materiaType, changePk}) {
-	var MateriaCard = CONF[materiaType].card;
 	const deck = [];
 	const row = {};
 	const NCOLS = 4;
@@ -14,14 +12,13 @@ export default function GenericList ({data, resetState, materiaType, changePk}) 
 	row[0] = [];
 	for (i in data) {
 		materia = data[i];
-		row[Math.floor(i / NCOLS)].push(<Col key={materia.pk}><MateriaCard 
+		row[Math.floor(i / NCOLS)].push(<Col xs="3" key={materia.pk}><MateriaCard 
 			key={materia.pk} 
 			materia={materia} 
 			materiaType={materiaType} 
 			resetState={resetState}
 			changePk={changePk} /></Col>)
 		if ((Number.parseInt(i) + 1) % NCOLS === 0) {
-			console.log("yeah")
 			deck.push(<Row key={Math.floor(i / NCOLS)}>{row[Math.floor(i / NCOLS)]}</Row>)
 			row[Math.floor(i / NCOLS) + 1] = [];
 		}
