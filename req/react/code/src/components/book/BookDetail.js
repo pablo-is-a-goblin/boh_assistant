@@ -13,7 +13,6 @@ export default function BookDetail({materiaType, materiaPk, changeMateria, chang
 
     useEffect(() => {   
         async function fetchMateria() {
-            console.log("SI")
             const response = await axios.get(API_URL + materiaType + "/" + materiaPk + "/");
             setMateria(response.data);
         }
