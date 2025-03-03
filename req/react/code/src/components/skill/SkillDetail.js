@@ -5,7 +5,7 @@ import { Col, Row, Container, Table, Accordion, AccordionItem, AccordionHeader, 
 
 export default function SkillDetail({materiaType, materiaPk, changeMateria, changePk}) {
     const [materia, setMateria] = useState('');
-    const [open, setOpen] = useState('1');
+    const [open, setOpen] = useState();
 
     const toggle = (id) => {
       if (open === id) {

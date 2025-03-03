@@ -3,7 +3,7 @@ import { Card, CardBody, CardFooter, ButtonGroup, Button } from "reactstrap";
 import ConfirmRemovalModal from "./ConfirmRemovalModal";
 import { CONF } from "../constants";
 
-export default function MateriaCard ({materia, materiaType, resetState, changePk}) {
+export default function MateriaCard ({materia, materiaType, resetState, changeType, changePk}) {
     const NewModal = CONF[materiaType].modal;
     const CardContent = CONF[materiaType].card;
 
@@ -12,11 +12,16 @@ export default function MateriaCard ({materia, materiaType, resetState, changePk
         mat_img = <img src={materia.image} alt={materia.name}></img>;
     }
 
+    function changeTo(type, pk) {
+        changePk(pk);
+        changeType(type);
+    }
+
     return (
 <Card className="materia-card-img">
     {mat_img}
     <CardBody>
-        <CardContent materia={materia}/>
+        <CardContent materia={materia} changeTo={changeTo}/>
     </CardBody>
     <CardFooter>
         <ButtonGroup>
@@ -28,7 +33,7 @@ export default function MateriaCard ({materia, materiaType, resetState, changePk
             />
           &nbsp;&nbsp;
             <Button onClick={() => changePk(materia.pk)}>
-                See Detail
+                See...
             </Button>
           &nbsp;&nbsp;
               <ConfirmRemovalModal

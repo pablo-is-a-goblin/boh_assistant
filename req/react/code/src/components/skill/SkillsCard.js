@@ -7,6 +7,7 @@ return (
       <CardTitle tag="h2">{materia.name}</CardTitle>
       <CardText tag="i">{materia.description}</CardText>
       <CardText className="text-center"><img className="materia-label" src={materia.principle1.image} alt={materia.principle1.name}></img>
+      <i className="bi bi-suit-diamond-fill"></i>
       <img className="materia-label" src={materia.principle2.image} alt={materia.principle2.name}></img>
       </CardText>
       <CardText className="text-center">

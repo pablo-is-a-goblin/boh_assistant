@@ -1,10 +1,10 @@
 import React, {useEffect, useState} from "react";
-import { Col, Container, Row } from "reactstrap";
+import { Container, Row } from "reactstrap";
 import GenericList from "./GenericList";
 import axios from "axios";
 import { API_URL, CONF } from "../constants";
 
-export default function Home ({materiaType, changePk}) {
+export default function Home ({materiaType, changePk, changeType}) {
 const [materiaData, setMateriaData] = useState([]);
 
   useEffect(() => {
@@ -24,13 +24,16 @@ const [materiaData, setMateriaData] = useState([]);
 
   return (
     <Container style={{ marginTop: "20px" }}>
-      <Row key="list">
-          <GenericList data={materiaData} resetState={resetState} materiaType={materiaType} changePk={changePk}/>
-      </Row>
       <Row key="new">
-        <Col>
           <NewModal create={true} resetState={resetState} materiaType={materiaType}/>
-        </Col>
+      </Row>
+      <Row style={{ marginTop: "20px" }} key="list">
+          <GenericList 
+            data={materiaData}
+            resetState={resetState}
+            materiaType={materiaType}
+            changePk={changePk}
+            changeType={changeType}/>
       </Row>
     </Container>
   );

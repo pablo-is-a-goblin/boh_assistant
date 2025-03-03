@@ -15,7 +15,6 @@ export default function App () {
     setMateriaPk(new_pk);
   }
 
-
   var MainPage;
   if (materiaPk !== "") {
     MainPage = CONF[materiaType].detail;
@@ -28,7 +27,8 @@ export default function App () {
     MainPage = <Home
     key={materiaType}
     materiaType={materiaType}
-    changePk={changePk}/>
+    changePk={changePk}
+    changeType={changeMateria}/>
 
   return (
     <Fragment>

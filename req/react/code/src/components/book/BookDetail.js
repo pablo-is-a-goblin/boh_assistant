@@ -24,12 +24,26 @@ export default function BookDetail({materiaType, materiaPk, changeMateria, chang
         changePk(pk);
     }
 
+    var book_lang;
+    if (materia.tongue) {
+        book_lang = (
+            <p className="text-center">
+                Written in <button 
+                    className="button-as-link" 
+                    onClick={() => changeTo("tongue", materia.tongue.pk)}>
+                    <img className="materia-label" src={materia.tongue.image} alt=""/>
+                    {materia.tongue.name}
+                </button>
+            </p>
+        )
+    }
+
     return (
         <Container>
             {materia &&
             <Row>
             <Col xs="9">
-                <h1>{materia.name}</h1>
+                <h1>{materia.name} - {materia.abv}</h1>
                 <i>{materia.description}</i>
             </Col>
             <Col xs="3">
@@ -53,6 +67,7 @@ export default function BookDetail({materiaType, materiaPk, changeMateria, chang
                         </tr>
                     </tbody>
                 </Table>
+                {book_lang}
             </Col>
             </Row>
             }
