@@ -30,7 +30,7 @@ export default function NewMateriaModal ({create, resetState, materia, materiaTy
 	return (
 	<Fragment>
 	  {button}
-	  <Modal isOpen={modal} toggle={toggle}>
+	  <Modal size="lg" isOpen={modal} toggle={toggle}>
 		<ModalHeader toggle={toggle}>{title}</ModalHeader>
 		<ModalBody>
 		  <NewMateriaForm

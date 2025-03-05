@@ -29,7 +29,7 @@ export default function NewMemoryModal ({create, resetState, materia}) {
 	return (
 	<Fragment>
 	  {button}
-	  <Modal isOpen={modal} toggle={toggle}>
+	  <Modal size="lg" isOpen={modal} toggle={toggle}>
 		<ModalHeader toggle={toggle}>{title}</ModalHeader>
 		<ModalBody>
 		  <NewMemoryForm

@@ -1,10 +1,11 @@
 import React, {useState, useEffect} from "react";
 import axios from "axios";
-import { API_URL } from "../../constants";
+import { API_URL, CONF } from "../../constants";
 import { Col, Row, Container, Table } from "reactstrap";
 
 export default function MemoryDetail({materiaType, materiaPk, changeMateria, changePk}) {
     const [materia, setMateria] = useState("");
+    const NewModal = CONF[materiaType].modal;
 
     useEffect(() => {   
         async function fetchMateria() {
@@ -19,6 +20,10 @@ export default function MemoryDetail({materiaType, materiaPk, changeMateria, cha
         changePk(pk);
     }
 
+    function fetchData() {
+    axios.get(API_URL + materiaType + "/" + materiaPk + "/").then(response => setMateria(response.data));    
+    }
+
     return (
         materia &&
         <Container>
@@ -28,8 +33,21 @@ export default function MemoryDetail({materiaType, materiaPk, changeMateria, cha
                 <i>{materia.description}</i>
             </Col>
             <Col xs="3">
-                <img className="materia-detail-img" src={materia.image} alt={materia.name} />
+                <img className="materia-detail-img mx-auto d-block" src={materia.image} alt={materia.name} />
+                <Row>
+                    <NewModal
+                create={false}
+                materia={materia}
+                resetState={fetchData}
+                materiaType={materiaType}
+                />
+                </Row>
             <Table>
+                <thead>
+                    <tr>
+                        <th colspan="2" className="text-center">Principles & other Aspects</th>
+                    </tr>
+                </thead>
                 <tbody>
                     {materia.principles.map(principle =>
                         <tr>
@@ -40,6 +58,16 @@ export default function MemoryDetail({materiaType, materiaPk, changeMateria, cha
                                     {principle.principle.name}
                             </button></th>
                             <td>{principle.qty}</td>
+                        </tr>
+                    )}
+                    {materia.aspects.map(aspect =>
+                        <tr>
+                            <th colspan="2" className="text-center"> <button 
+                                    className="button-as-link" 
+                                    onClick={() => changeTo("object_label", aspect.pk)}>
+                                    <img className="materia-label" src={aspect.image} alt=""/>
+                                    {aspect.name}
+                            </button></th>
                         </tr>
                     )}
                 </tbody>

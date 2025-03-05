@@ -1,11 +1,12 @@
 import React, {useState, useEffect} from "react";
 import axios from "axios";
-import { API_URL } from "../../constants";
+import { API_URL, CONF } from "../../constants";
 import { Col, Row, Container, Table, Accordion, AccordionItem, AccordionHeader, AccordionBody } from "reactstrap";
 
 export default function SkillDetail({materiaType, materiaPk, changeMateria, changePk}) {
     const [materia, setMateria] = useState('');
     const [open, setOpen] = useState();
+    const NewModal = CONF[materiaType].modal;
 
     const toggle = (id) => {
       if (open === id) {
@@ -14,6 +15,10 @@ export default function SkillDetail({materiaType, materiaPk, changeMateria, chan
         setOpen(id);
       }
     };
+
+    function fetchData() {
+    axios.get(API_URL + materiaType + "/" + materiaPk + "/").then(response => setMateria(response.data));    
+    }
 
     useEffect(() => {   
         async function fetchMateria() {
@@ -32,12 +37,20 @@ export default function SkillDetail({materiaType, materiaPk, changeMateria, chan
         materia &&
         <Container>
         <Row>
-        <Col xs="8">
+        <Col xs="9">
             <h1>{materia.name}</h1>
             <i>{materia.description}</i>
         </Col>
         <Col xs="3">
             <img className="materia-detail-img mx-auto d-block" src={materia.image} alt={materia.name} />
+            <Row>
+              <NewModal
+             create={false}
+             materia={materia}
+             resetState={fetchData}
+             materiaType={materiaType}
+                />
+            </Row>
             <Table>
                 <tbody>
                     <tr>

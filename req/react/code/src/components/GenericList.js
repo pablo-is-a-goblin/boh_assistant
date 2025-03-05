@@ -12,7 +12,7 @@ export default function GenericList ({data, resetState, materiaType, changePk, c
 	row[0] = [];
 	for (i in data) {
 		materia = data[i];
-		row[Math.floor(i / NCOLS)].push(<Col xs="3" key={materia.pk}><MateriaCard 
+		row[Math.floor(i / NCOLS)].push(<Col xs="3" style={{ marginBottom: "20px" }} key={materia.pk}><MateriaCard 
 			key={materia.pk} 
 			materia={materia} 
 			materiaType={materiaType} 

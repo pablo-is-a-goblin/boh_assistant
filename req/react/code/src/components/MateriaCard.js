@@ -18,7 +18,7 @@ export default function MateriaCard ({materia, materiaType, resetState, changeTy
     }
 
     return (
-<Card className="materia-card-img">
+<Card className="materia-card-img" style={{ height: "100%", }}>
     {mat_img}
     <CardBody>
         <CardContent materia={materia} changeTo={changeTo}/>

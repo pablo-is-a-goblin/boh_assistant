@@ -18,11 +18,12 @@ code {
 
 .materia-card-img {
   max-width: 350px;
+  height: 100%;
 }
 
 .materia-detail-img {
   max-width: 100%;
-  width: 200px;
+  width: 250px;
 }
 
 .button-as-link {
