@@ -9,7 +9,7 @@ OBJECT_TYPE = (
 )
 
 class Principle(models.Model):
-    name = models.CharField(max_length=20)
+    name = models.CharField(max_length=40)
     description = models.TextField(blank=True)
     image = models.ImageField(upload_to='principles', blank=True)
     
@@ -22,7 +22,7 @@ class Principle(models.Model):
         return self.name
 
 class Tongue(models.Model):
-    name = models.CharField(max_length=20)
+    name = models.CharField(max_length=40)
     description = models.TextField(blank=True)
     image = models.ImageField(upload_to='tongues', blank=True)
 
@@ -35,7 +35,7 @@ class Tongue(models.Model):
         return self.name
 
 class SkillLabel(models.Model):
-    name = models.CharField(max_length=20)
+    name = models.CharField(max_length=40)
     description = models.TextField(blank=True)
     image = models.ImageField(upload_to='skill_labels', blank=True)
 
@@ -48,7 +48,7 @@ class SkillLabel(models.Model):
         return self.name
 
 class ObjectLabel(models.Model):
-    name = models.CharField(max_length=20)
+    name = models.CharField(max_length=40)
     description = models.TextField(blank=True)
     image = models.ImageField(upload_to='object_labels', blank=True)
 
@@ -61,7 +61,7 @@ class ObjectLabel(models.Model):
         return self.name
 
 class Object(models.Model):
-    name = models.CharField(max_length=50)
+    name = models.CharField(max_length=80)
     description = models.TextField(blank=True)
     principles = models.ManyToManyField(Principle, through='ObjectHasPrinciple')
     aspects = models.ManyToManyField(ObjectLabel, blank=True)
@@ -86,7 +86,7 @@ class Object(models.Model):
         return self.name
 
 class Skill(models.Model):
-    name = models.CharField(max_length=50)
+    name = models.CharField(max_length=80)
     description = models.TextField(blank=True)
     principle1 = models.ForeignKey(Principle, related_name="primary_principle", on_delete=models.CASCADE)
     principle2 = models.ForeignKey(Principle, related_name="secondary_principle", on_delete=models.CASCADE)
@@ -105,7 +105,7 @@ class Skill(models.Model):
         return self.name
 
 class Book(models.Model):
-    name = models.CharField(max_length=50)
+    name = models.CharField(max_length=80)
     description = models.TextField(blank=True)
     image = models.ImageField(upload_to='books', blank=True)
     abv = models.CharField(max_length=30)
@@ -116,6 +116,9 @@ class Book(models.Model):
     reading = models.TextField(blank=True)
     read = models.TextField(blank=True)
     memory = models.ForeignKey(Object, on_delete=models.PROTECT, blank=True, null=True)
+
+    class Meta:
+        ordering = ["name"]
 
     def get_params():
         return ["name", "description", "image", "abv", "tally", "dificulty", "tongue", "mistery", "reading", "read", "memory"]
