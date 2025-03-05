@@ -2,7 +2,7 @@ import React, { useState, Fragment } from "react";
 import { Button, Modal, ModalHeader, ModalBody } from "reactstrap";
 import NewMemoryForm from "./NewMemoryForm";
 
-export default function NewMemoryModal ({create, resetState, materia}) {
+export default function NewMemoryModal ({create, resetState, materia, materiaType}) {
 	const [modal, setModal] = useState(false);
   
 	function toggle () {
@@ -36,6 +36,7 @@ export default function NewMemoryModal ({create, resetState, materia}) {
 			resetState={resetState}
 			toggle={toggle}
 			materia={materia}
+			type={materiaType}
 		  />
 		</ModalBody>
 	  </Modal>

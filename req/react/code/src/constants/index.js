@@ -67,6 +67,24 @@ export const CONF = {
         detail: MemoryDetail,
 
     },
+    thing: {
+        pretty: "Thing",
+        pretties: "Things",
+        type: "thing",
+        modal: NewMemoryModal,
+        card: MemoryCard,
+        detail: MemoryDetail,
+
+    },
+    beast: {
+        pretty: "Beast",
+        pretties: "Beasts",
+        type: "beast",
+        modal: NewMemoryModal,
+        card: MemoryCard,
+        detail: MemoryDetail,
+
+    },
     book: {
         pretty: "Book",
         pretties: "Books",

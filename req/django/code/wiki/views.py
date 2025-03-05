@@ -43,6 +43,8 @@ read_serializers = {
     'skill': ReadSkillSerializer,
     'memory': ReadMemorySerializer,
     'book': ReadBookSerializer,
+    'thing': ReadThingSerializer,
+    'beast': ReadBeastSerializer,
 }
 
 write_serializers = {
@@ -53,6 +55,8 @@ write_serializers = {
     'skill': WriteSkillSerializer,
     'memory': WriteMemorySerializer,
     'book': WriteBookSerializer,
+    'thing': WriteThingSerializer,
+    'beast': WriteBeastSerializer,
 }
 
 form_model = {
@@ -70,7 +74,11 @@ form_model = {
 @api_view(['GET', 'POST'])
 def api_list(request, materia):
     if request.method == 'GET':
-        data = get_model[materia].objects.all()
+        model = get_model[materia]
+        if (model == my_models.Object):
+            data = model.objects.filter(object_type=materia.upper())
+        else:
+            data = model.objects.all()
 
         serializer = read_serializers[materia](data, context={'request': request}, many=True)
 

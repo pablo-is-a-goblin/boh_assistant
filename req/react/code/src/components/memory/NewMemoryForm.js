@@ -10,14 +10,19 @@ export default function NewMemoryForm ({materia, toggle, resetState, type}) {
 	const [image, setImage] = useState(initImage);
 	const [principleQty, setPrincipleQty] = useState(initPrincipleQty)
 	const [aspects, setAspects] = useState(initAspects);
+	const [talking, setTalking] = useState(initTalking);
+	const [considering, setConsidering] = useState(initConsidering);
 	const [principleData, setPrincipleData] = useState([]);
 	const [aspectData, setAspectData] = useState([]);
+	const [memoryData, setMemoryData] = useState([])
 
 	async function getInitData() {
 		let response = await axios.get(API_URL + "principle");
 		setPrincipleData(response.data);	
 		response = await axios.get(API_URL + "object_label");
 		setAspectData(response.data);	
+		response = await axios.get(API_URL + "memory");
+		setMemoryData(response.data);
 	}
 
 	useEffect(() => {getInitData();}, []);
@@ -28,27 +33,46 @@ export default function NewMemoryForm ({materia, toggle, resetState, type}) {
 	function initImage() { return ("") }
 	function initPrincipleQty() { return (materia ? materia.principles.reduce((res, val, i) => ({...res, [val.principle.name]: val.qty}), {}) : {}) }
 	function initAspects() {return (materia ? materia.aspects.flatMap(x => x.name) : [])}
+	function initConsidering() { return (materia && materia.considering ? materia.considering.name : "" ) }
+	function initTalking() { return (materia && materia.talking ? materia.talking.name : "" ) }
 
 	function getPrinciplePk(name) {
 		for (let i in principleData) {
 			if (name.valueOf() === principleData[i].name.valueOf() )
 				return (principleData[i].pk);
 		}
-		return (principleData[0].pk);
+		return ("");
 	}
 	function getAspectPk(name) {
 		for (let i in aspectData) {
 			if (name.valueOf() === aspectData[i].name.valueOf() )
 				return (aspectData[i].pk);
 		}
-		return (aspectData[0].pk);
+		return ("");
+	}
+	function getMemoryPk(name) {
+		for (let i in memoryData) {
+			if (name.valueOf() === memoryData[i].name.valueOf() )
+				return (memoryData[i].pk);
+		}
+		return ("");
 	}
 	function getFormData() {
 		let data = new FormData();
 		data.append("pk", pk);
 		data.append("name", name);
 		data.append("description", description);
-		data.append("object_type", "MEMORY")
+		if (type === "memory") {
+			data.append("object_type", "MEMORY");
+		} else {
+			data.append("considering", getMemoryPk(considering));
+			if (type === "beast") {
+				data.append("object_type", "BEAST");
+				data.append("talking", getMemoryPk(talking));
+			} else {
+				data.append("object_type", "THING");
+			}
+		}
 		for (let i in aspects) {
 			data.append("aspects", getAspectPk(aspects[i]));
 		}
@@ -62,7 +86,7 @@ export default function NewMemoryForm ({materia, toggle, resetState, type}) {
 	function createMateria(e) {
 		e.preventDefault();
 		let data = getFormData();
-		axios.post(API_URL + "memory/", data).then(() => {
+		axios.post(API_URL + type + "/", data).then(() => {
 		  resetState();
 		  toggle();
 		}).catch((error) => {
@@ -74,7 +98,7 @@ export default function NewMemoryForm ({materia, toggle, resetState, type}) {
 	function editMateria (e) {
 		e.preventDefault();
 		let data = getFormData();
-		axios.put(API_URL + "memory/" + pk + "/", data).then(() => {
+		axios.put(API_URL + type + "/" + pk + "/", data).then(() => {
 		  resetState();
 		  toggle();
 		});
@@ -93,6 +117,43 @@ export default function NewMemoryForm ({materia, toggle, resetState, type}) {
 				aspects.filter(a => a !== value)
 			)
 		}
+	}
+
+	var considerInput;
+	if (type !== "memory") {
+		considerInput = (<FormGroup>
+		<Label for="considering">Considering...</Label>
+		<Input
+			type="select"
+			name="considering"
+			onChange={e => setConsidering(e.target.value)}
+			value={defaultIfEmpty(considering)}>
+			<option></option>
+			{memoryData.map( memory => (
+				<option>
+					{memory.name}
+				</option>
+			))}
+		</Input>
+		</FormGroup>);
+	}
+	var talkInput;
+	if (type !== "memory") {
+		talkInput = (<FormGroup>
+		<Label for="talking">Talking...</Label>
+		<Input
+			type="select"
+			name="talking"
+			onChange={e => setTalking(e.target.value)}
+			value={defaultIfEmpty(talking)}>
+			<option></option>
+			{memoryData.map( memory => (
+				<option>
+					{memory.name}
+				</option>
+			))}
+		</Input>
+		</FormGroup>);
 	}
 
 	return (
@@ -154,6 +215,8 @@ export default function NewMemoryForm ({materia, toggle, resetState, type}) {
 			onChange={e => setImage(e.target.files[0])}
 		  />
 		</FormGroup>
+		{talkInput}
+		{considerInput}
 		<Button>Send</Button>
 	  </Form>
 	);

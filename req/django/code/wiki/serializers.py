@@ -154,3 +154,152 @@ class WriteBookSerializer(serializers.ModelSerializer):
 		list_field.extend(model.get_params())
 		fields = list_field
 		
+
+class ReadThingSerializer(serializers.ModelSerializer):
+	principles = ObjectHasPrincipleSerializer(source='objecthasprinciple_set',many=True)
+	aspects = SkillLabelSerializer(many=True)
+	considering = ReadMemorySerializer()
+
+	class Meta:
+		model = my_models.Object
+		list_field = ['pk']
+		list_field.extend(model.get_params(self=my_models.Object(object_type="THING")))
+		fields = list_field
+
+class WriteThingSerializer(serializers.ModelSerializer):
+	aspects = serializers.PrimaryKeyRelatedField(
+		queryset=my_models.ObjectLabel.objects.all(),
+		many=True,
+		allow_null=True)
+	principles = serializers.ListField(child=serializers.CharField())
+	considering = serializers.PrimaryKeyRelatedField(
+		queryset=my_models.Object.objects.all(),
+		allow_null=True,
+	)
+
+	class Meta:
+		model = my_models.Object
+		list_field = ['pk']
+		list_field.extend(model.get_params(self=my_models.Object(object_type="THING")))
+		fields = list_field
+
+	def create(self, validated_data):
+		principles_data = validated_data.pop('principles')
+		aspects = validated_data.pop('aspects')
+		memory = my_models.Object.objects.create(**validated_data)
+		memory.aspects.set(aspects)
+		memory.save()
+		for principle_str in principles_data:
+			if (len(principle_str) < 3):
+				continue
+			principle_list = principle_str.split(':')
+			principle = my_models.Principle.objects.get(pk=int(principle_list[0]))
+			qty = int(principle_list[1])
+			if qty == 0:
+				continue
+			my_models.ObjectHasPrinciple.objects.create(obj=memory, principle=principle, qty=qty)
+		return memory
+
+	def update(self, instance, validated_data):
+		print(validated_data)
+		principles_data = validated_data.pop('principles')
+		for principle_str in principles_data:
+			principle_list = principle_str.split(':')
+			principle = my_models.Principle.objects.get(pk=int(principle_list[0]))
+			if (len(principle_str) < 3):
+				qty = 0;
+			else:
+				qty = int(principle_list[1])
+			try:
+				ohp = my_models.ObjectHasPrinciple.objects.get(obj=instance, principle=principle)
+				if qty == 0:
+					ohp.delete()
+				else:
+					ohp.qty = qty
+					ohp.save()
+			except:
+				my_models.ObjectHasPrinciple.objects.create(obj=instance, principle=principle, qty=qty)
+
+		instance.name = validated_data.get("name", instance.name)
+		instance.description = validated_data.get("description", instance.description)
+		instance.aspects.set(validated_data.get("aspects", instance.aspects))
+		instance.image = validated_data.get("image", instance.image)
+		instance.save()
+		return instance
+
+class ReadBeastSerializer(serializers.ModelSerializer):
+	principles = ObjectHasPrincipleSerializer(source='objecthasprinciple_set',many=True)
+	aspects = SkillLabelSerializer(many=True)
+	considering = ReadMemorySerializer()
+	talking = ReadMemorySerializer()
+
+	class Meta:
+		model = my_models.Object
+		list_field = ['pk']
+		list_field.extend(model.get_params(self=my_models.Object(object_type="BEAST")))
+		fields = list_field
+
+class WriteBeastSerializer(serializers.ModelSerializer):
+	aspects = serializers.PrimaryKeyRelatedField(
+		queryset=my_models.ObjectLabel.objects.all(),
+		many=True,
+		allow_null=True)
+	principles = serializers.ListField(child=serializers.CharField())
+	considering = serializers.PrimaryKeyRelatedField(
+		queryset=my_models.Object.objects.all(),
+		allow_null=True,
+	)
+	talking = serializers.PrimaryKeyRelatedField(
+		queryset=my_models.Object.objects.all(),
+		allow_null=True,
+	)
+
+	class Meta:
+		model = my_models.Object
+		list_field = ['pk']
+		list_field.extend(model.get_params(self=my_models.Object(object_type="BEAST")))
+		fields = list_field
+
+	def create(self, validated_data):
+		principles_data = validated_data.pop('principles')
+		aspects = validated_data.pop('aspects')
+		memory = my_models.Object.objects.create(**validated_data)
+		memory.aspects.set(aspects)
+		memory.save()
+		for principle_str in principles_data:
+			if (len(principle_str) < 3):
+				continue
+			principle_list = principle_str.split(':')
+			principle = my_models.Principle.objects.get(pk=int(principle_list[0]))
+			qty = int(principle_list[1])
+			if qty == 0:
+				continue
+			my_models.ObjectHasPrinciple.objects.create(obj=memory, principle=principle, qty=qty)
+		return memory
+
+	def update(self, instance, validated_data):
+		print(validated_data)
+		principles_data = validated_data.pop('principles')
+		for principle_str in principles_data:
+			principle_list = principle_str.split(':')
+			principle = my_models.Principle.objects.get(pk=int(principle_list[0]))
+			if (len(principle_str) < 3):
+				qty = 0;
+			else:
+				qty = int(principle_list[1])
+			try:
+				ohp = my_models.ObjectHasPrinciple.objects.get(obj=instance, principle=principle)
+				if qty == 0:
+					ohp.delete()
+				else:
+					ohp.qty = qty
+					ohp.save()
+			except:
+				my_models.ObjectHasPrinciple.objects.create(obj=instance, principle=principle, qty=qty)
+
+		instance.name = validated_data.get("name", instance.name)
+		instance.description = validated_data.get("description", instance.description)
+		instance.aspects.set(validated_data.get("aspects", instance.aspects))
+		instance.image = validated_data.get("image", instance.image)
+		instance.save()
+		return instance
