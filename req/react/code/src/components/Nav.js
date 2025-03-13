@@ -4,6 +4,7 @@ import {
   Nav,
   NavItem,
   NavLink,
+  Container,
 } from 'reactstrap';
 import { CONF } from '../constants';
 
@@ -23,13 +24,13 @@ export default function Navigate({changeMateria, changePk, materiaType}) {
     }
 
   return (
-    <div>
-      <Navbar expand="lg">
+    <Container style={{ paddingBottom: "100px" }}>
+      <Navbar className="bg-light" fixed="top" expand="lg" style={{ paddingBottom: "30px" }}>
         <NavbarBrand href="/">The Librarian's Journal</NavbarBrand>
           <Nav className="me-auto" navbar>
             {links}
           </Nav>
-      </Navbar>
-    </div>
+      </Navbar >
+    </Container>
   );
 }

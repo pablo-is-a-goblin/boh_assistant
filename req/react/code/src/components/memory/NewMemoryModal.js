@@ -9,10 +9,10 @@ export default function NewMemoryModal ({create, resetState, materia, materiaTyp
 		setModal(!modal);
 	}
 
-	var title = "Editing Memory";
+	var title = "Editing " + materiaType;
 	var button = <Button onClick={toggle}>Edit</Button>;
 	if (create) {
-		title = "Creating New Memory";
+		title = "Creating New " + materiaType;
   
 		button = (
 		  <Button
