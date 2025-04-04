@@ -303,3 +303,46 @@ class WriteBeastSerializer(serializers.ModelSerializer):
 		instance.image = validated_data.get("image", instance.image)
 		instance.save()
 		return instance
+
+class PrincipleDetailSerializer(serializers.ModelSerializer):
+	primary_principle = ReadSkillSerializer(many=True)
+	secondary_principle = ReadSkillSerializer(many=True)
+	book_set = ReadBookSerializer(many=True)
+	object_set = ReadMemorySerializer(many=True)
+	
+	class Meta:
+		model = my_models.Principle
+		list_field = ['pk']
+		list_field.extend(model.get_params())
+		list_field.extend(["primary_principle", "secondary_principle", "book_set", "object_set"])
+		fields = list_field
+
+class TongueDetailSerializer(serializers.ModelSerializer):
+	book_set = ReadBookSerializer(many=True)
+	
+	class Meta:
+		model = my_models.Tongue
+		list_field = ['pk']
+		list_field.extend(model.get_params())
+		list_field.extend(["book_set"])
+		fields = list_field
+
+class SkillLabelDetailSerializer(serializers.ModelSerializer):
+	skill_set = ReadSkillSerializer(many=True)
+	
+	class Meta:
+		model = my_models.SkillLabel
+		list_field = ['pk']
+		list_field.extend(model.get_params())
+		list_field.extend(["skill_set"])
+		fields = list_field
+
+class ObjectLabelDetailSerializer(serializers.ModelSerializer):
+	object_set = ReadMemorySerializer(many=True)
+	
+	class Meta:
+		model = my_models.ObjectLabel
+		list_field = ['pk']
+		list_field.extend(model.get_params())
+		list_field.extend(["object_set"])
+		fields = list_field

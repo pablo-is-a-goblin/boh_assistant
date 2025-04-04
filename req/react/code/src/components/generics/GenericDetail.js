@@ -2,8 +2,12 @@ import React, {useState, useEffect} from "react";
 import axios from "axios";
 import { API_URL, CONF } from "../../constants";
 import { Col, Row, Container } from "reactstrap";
+import PrincipleAcordion from "./PrincipleAcordion";
+import TongueAcordion from "./TongueAcordion";
+import SkillLabelAcordion from "./SkillLabelAcordion";
+import ObjectLabelAcordion from "./ObjectLabelAcordion";
 
-export default function GenericDetail({materiaType, materiaPk, changeMateria, changePK}) {
+export default function GenericDetail({materiaType, materiaPk, changeMateria, changePk}) {
     const [materia, setMateria] = useState('');
     const NewModal = CONF[materiaType].modal;
     
@@ -13,6 +17,22 @@ export default function GenericDetail({materiaType, materiaPk, changeMateria, ch
     }
 
     useEffect(() => {getMateria();}, []);
+
+    var MateriaAcc;
+    if (materiaType === "principle") {
+        MateriaAcc = PrincipleAcordion;
+    } else if (materiaType === "tongue") {
+        MateriaAcc = TongueAcordion;
+    } else if (materiaType === "skill_label") {
+        MateriaAcc = SkillLabelAcordion;
+    } else {
+        MateriaAcc = ObjectLabelAcordion;
+    }
+
+    function changeTo(type, pk) {
+        changeMateria(type);
+        changePk(pk);
+    }
 
     return (
         materia &&
@@ -34,6 +54,10 @@ export default function GenericDetail({materiaType, materiaPk, changeMateria, ch
                 </Row>
             </Col>
             </Row>
+            <MateriaAcc 
+                materia={materia}
+                changeTo={changeTo}
+            />
         </Container>
     );
 }

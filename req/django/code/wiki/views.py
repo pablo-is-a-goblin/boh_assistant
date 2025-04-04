@@ -47,6 +47,18 @@ read_serializers = {
     'beast': ReadBeastSerializer,
 }
 
+detail_serializers = {
+    'principle': PrincipleDetailSerializer,
+    'tongue': TongueDetailSerializer,
+    'skill_label': SkillLabelDetailSerializer,
+    'object_label': ObjectLabelDetailSerializer,
+    'skill': ReadSkillSerializer,
+    'memory': ReadMemorySerializer,
+    'book': ReadBookSerializer,
+    'thing': ReadThingSerializer,
+    'beast': ReadBeastSerializer,
+}
+
 write_serializers = {
     'principle': PrincipleSerializer,
     'tongue': TongueSerializer,
@@ -111,7 +123,7 @@ def api_detail(request, materia, pk):
         return Response(status=status.HTTP_204_NO_CONTENT)
     
     elif request.method == 'GET':
-        serializer = read_serializers[materia](data, context={'request': request})
+        serializer = detail_serializers[materia](data, context={'request': request})
 
         return Response(serializer.data)
 
