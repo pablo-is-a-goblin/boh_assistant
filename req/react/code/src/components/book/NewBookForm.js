@@ -1,7 +1,8 @@
 import React, {useState, useEffect} from "react";
-import { Button, Form, FormGroup, Input, Label, Collapse } from "reactstrap";
+import { Button, Form, FormGroup, Input, InputGroup, Label, Collapse } from "reactstrap";
 import axios from "axios";
 import { API_URL } from "../../constants";
+import QuickModal from "../QuickModal";
 
 export default function NewBookForm ({materia, toggle, resetState, type}) {
 	const pk = initValue("pk");
@@ -128,7 +129,9 @@ export default function NewBookForm ({materia, toggle, resetState, type}) {
 		</FormGroup>
 		<FormGroup>
 		<Label for="mistery">Mistery:</Label>
-		<Input
+		<InputGroup>
+			<QuickModal materiaType={"principle"} resetState={getInitData} setParentState={setMistery}></QuickModal>
+			<Input
 			type="select"
 			name="mistery"
 			onChange={e => setMistery(e.target.value)}
@@ -138,7 +141,8 @@ export default function NewBookForm ({materia, toggle, resetState, type}) {
 					{principle.name}
 				</option>
 			))}
-		</Input>
+			</Input>
+		</InputGroup>
 		</FormGroup>
 		<FormGroup>
 		  <Label for="image">Image:</Label>
@@ -150,6 +154,8 @@ export default function NewBookForm ({materia, toggle, resetState, type}) {
 		</FormGroup>
 		<FormGroup>
 		<Label for="memory">Memory produced:</Label>
+		<InputGroup>
+		<QuickModal materiaType={"memory"} resetState={getInitData} setParentState={setMemory}></QuickModal>
 		<Input
 			type="select"
 			name="memory"
@@ -162,6 +168,7 @@ export default function NewBookForm ({materia, toggle, resetState, type}) {
 				</option>
 			))}
 		</Input>
+		</InputGroup>
 		</FormGroup>
 		<Button onClick={toggleAdvanced}>Advanced Options</Button>
 		<Collapse isOpen={isOpen}>
@@ -194,6 +201,8 @@ export default function NewBookForm ({materia, toggle, resetState, type}) {
 		</FormGroup>
 		<FormGroup>
 		<Label for="tongue">Tongue:</Label>
+		<InputGroup>
+		<QuickModal materiaType={"tongue"} resetState={getInitData} setParentState={setTongue}></QuickModal>
 		<Input
 			type="select"
 			name="tongue"
@@ -206,6 +215,7 @@ export default function NewBookForm ({materia, toggle, resetState, type}) {
 				</option>
 			))}
 		</Input>
+		</InputGroup>
 		</FormGroup>
 		</Collapse>
 		<Button>Send</Button>

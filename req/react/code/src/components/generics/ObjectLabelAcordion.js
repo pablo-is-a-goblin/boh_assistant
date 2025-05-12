@@ -31,7 +31,7 @@ return (
                                 <th>
                                 <button
                                     className="button-as-link" 
-                                    onClick={() => changeTo("", object.pk)}>
+                                    onClick={() => changeTo(object.object_type.toLowerCase(), object.pk)}>
                                 {object.name}</button>
                                 </th>
                                 <td>
