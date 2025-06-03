@@ -5,7 +5,7 @@ import MateriaCard from "./MateriaCard";
 export default function GenericList ({data, resetState, materiaType, changePk, changeType, sort}) {
 	const deck = [];
 	const row = {};
-	const NCOLS = 4;
+	const NCOLS = 6;
 
 	data.sort(function sorting(a,b) {
 		if (a[sort] === b[sort])
@@ -33,7 +33,7 @@ export default function GenericList ({data, resetState, materiaType, changePk, c
 	row[0] = [];
 	for (i in data) {
 		materia = data[i];
-		row[Math.floor(i / NCOLS)].push(<Col xs="3" style={{ marginBottom: "20px" }} key={materia.pk}><MateriaCard 
+		row[Math.floor(i / NCOLS)].push(<Col xs="2" style={{ marginBottom: "20px" }} key={materia.pk}><MateriaCard 
 			key={materia.pk} 
 			materia={materia} 
 			materiaType={materiaType} 

@@ -63,7 +63,7 @@ class ObjectLabel(models.Model):
 class Object(models.Model):
     name = models.CharField(max_length=80)
     description = models.TextField(blank=True)
-    principles = models.ManyToManyField(Principle, through='ObjectHasPrinciple')
+    principles = models.ManyToManyField(Principle, through='ObjectHasPrinciple', blank=True)
     aspects = models.ManyToManyField(ObjectLabel, blank=True)
     image = models.ImageField(upload_to='objects', blank=True)
     talking = models.ForeignKey('self', on_delete=models.PROTECT, blank=True, null=True, related_name='talked')

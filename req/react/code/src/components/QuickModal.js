@@ -17,6 +17,7 @@ export default function QuickModal ({resetState, materiaType, setParentState}) {
         let data = new FormData();
         data.append("name", name);
         data.append("description", description);
+        data.append("object_type", materiaType.toUpperCase());
         axios.post(API_URL + materiaType + "/", data).then(() => {
           resetState();
           toggle();

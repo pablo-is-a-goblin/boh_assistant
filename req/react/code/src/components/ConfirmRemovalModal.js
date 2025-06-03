@@ -22,7 +22,7 @@ export default function ConfirmRemovalModal ({pk, resetState, materiaType, name}
   return (
     <Fragment>
       <Button color="danger" onClick={() => toggle()}>
-        Remove
+        <i className="bi bi-trash"/>
       </Button>
       <Modal isOpen={modal} toggle={toggle}>
         <ModalHeader toggle={toggle}>

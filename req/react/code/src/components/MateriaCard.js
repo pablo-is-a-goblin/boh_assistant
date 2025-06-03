@@ -33,7 +33,7 @@ export default function MateriaCard ({materia, materiaType, resetState, changeTy
             />
           &nbsp;&nbsp;
             <Button onClick={() => changePk(materia.pk)}>
-                See...
+                See
             </Button>
           &nbsp;&nbsp;
               <ConfirmRemovalModal
