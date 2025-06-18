@@ -53,7 +53,7 @@ detail_serializers = {
     'skill_label': SkillLabelDetailSerializer,
     'object_label': ObjectLabelDetailSerializer,
     'skill': ReadSkillSerializer,
-    'memory': ReadMemorySerializer,
+    'memory': MemoryDetailSerializer,
     'book': ReadBookSerializer,
     'thing': ReadThingSerializer,
     'beast': ReadBeastSerializer,

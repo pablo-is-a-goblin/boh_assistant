@@ -2,6 +2,7 @@ import React, {useState, useEffect} from "react";
 import axios from "axios";
 import { API_URL, CONF } from "../../constants";
 import { Col, Row, Container, Table } from "reactstrap";
+import MemoryAcordion from "./MemoryAcordion";
 
 export default function MemoryDetail({materiaType, materiaPk, changeMateria, changePk}) {
     const [materia, setMateria] = useState("");
@@ -74,6 +75,10 @@ export default function MemoryDetail({materiaType, materiaPk, changeMateria, cha
             </Table>
             </Col>
             </Row>
+            <MemoryAcordion 
+                materia={materia}
+                changeTo={changeTo}
+            /> 
         </Container>
     );
 }

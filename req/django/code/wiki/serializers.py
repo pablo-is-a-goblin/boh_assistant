@@ -346,3 +346,15 @@ class ObjectLabelDetailSerializer(serializers.ModelSerializer):
 		list_field.extend(model.get_params())
 		list_field.extend(["object_set"])
 		fields = list_field
+
+class MemoryDetailSerializer(serializers.ModelSerializer):
+	book_set = ReadBookSerializer(many=True)
+	principles = ObjectHasPrincipleSerializer(source='objecthasprinciple_set',many=True)
+	aspects = SkillLabelSerializer(many=True)
+
+	class Meta:
+		model = my_models.Object
+		list_field = ['pk']
+		list_field.extend(model.get_params(self=my_models.Object(object_type="MEMORY")))
+		list_field.extend(["book_set"])
+		fields = list_field
